@@ -40,11 +40,33 @@ class CreateModule {
     }
 
     @Test
-    void createEmptyModuleOutputInput() {
+    void createEmptyModuleAddOutput() {
         Module module = new Module("NAMETWO");
         module.addOutput("a");
         assertEquals(module.getText(),
                 "module NAMETWO(output a);\n" +
+                        "endmodule\n");
+    }
+
+    @Test
+    void createEmptyModuleAddTwoOutput() {
+        Module module = new Module("NAMETWO");
+        module.addOutput("a");
+        module.addOutput("b");
+        assertEquals(module.getText(),
+                "module NAMETWO(output a, b);\n" +
+                        "endmodule\n");
+    }
+
+    @Test
+    void createEmptyModuleAddTwoInputAndTwoOutput() {
+        Module module = new Module("NAMETWO");
+        module.addInput("a");
+        module.addInput("b");
+        module.addOutput("c");
+        module.addOutput("d");
+        assertEquals(module.getText(),
+                "module NAMETWO(output a, b, output c, d);\n" +
                         "endmodule\n");
     }
 }
