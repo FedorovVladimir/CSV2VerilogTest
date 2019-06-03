@@ -24,6 +24,9 @@ class Module {
             }
         }
         if (outputs.size() > 0) {
+            if (inputs.size() > 0) {
+                str.append(", ");
+            }
             str.append("output");
             for (int i = 0; i < outputs.size(); i++) {
                 if (i > 0) {

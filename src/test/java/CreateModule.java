@@ -66,7 +66,7 @@ class CreateModule {
         module.addOutput("c");
         module.addOutput("d");
         assertEquals(module.getText(),
-                "module NAMETWO(output a, b, output c, d);\n" +
+                "module NAMETWO(input a, b, output c, d);\n" +
                         "endmodule\n");
     }
 }
