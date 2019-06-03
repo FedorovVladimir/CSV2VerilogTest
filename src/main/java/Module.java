@@ -5,6 +5,7 @@ class Module {
 
     private String name = "";
     private List<String> inputs = new LinkedList<String>();
+    private List<String> outputs = new LinkedList<String>();
 
     Module(String name) {
         this.name = name;
@@ -22,6 +23,15 @@ class Module {
                 str.append(" ").append(inputs.get(i));
             }
         }
+        if (outputs.size() > 0) {
+            str.append("output");
+            for (int i = 0; i < outputs.size(); i++) {
+                if (i > 0) {
+                    str.append(",");
+                }
+                str.append(" ").append(outputs.get(i));
+            }
+        }
         str.append(");\n");
         str.append("endmodule\n");
         return str.toString();
@@ -32,6 +42,6 @@ class Module {
     }
 
     void addOutput(String name) {
-
+        outputs.add(name);
     }
 }
