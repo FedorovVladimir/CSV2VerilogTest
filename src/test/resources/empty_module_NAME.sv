@@ -1,0 +1,2 @@
+module NAME();
+endmodule

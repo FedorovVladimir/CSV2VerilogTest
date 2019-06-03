@@ -7,9 +7,7 @@ public class CreateModule {
 
     @Test
     void createEmptyModule() throws FileNotFoundException {
-        String begin = "module name();\n";
-        String end = "endmodule\n";
-        String module = begin + end;
-        WorkWithFile.equals(new FileReader("src/test/resources/empty_module.sv"), module);
+        Module module = new Module("NAME");
+        WorkWithFile.equals(new FileReader("src/test/resources/empty_module_NAME.sv"), module.getText());
     }
 }
