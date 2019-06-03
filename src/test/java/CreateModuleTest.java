@@ -7,16 +7,10 @@ class CreateModuleTest {
     @Test
     void createEmptyModuleTest1() {
         Module module = new Module("NAMETWO");
+        module.addInput("a");
         assertEquals(module.getTestText(1),
                 "module NAMETWO_test_1(output out);\n" +
-                        "endmodule\n");
-    }
-
-    @Test
-    void createEmptyModuleTest2() {
-        Module module = new Module("NAMETWO");
-        assertEquals(module.getTestText(2),
-                "module NAMETWO_test_2(output out);\n" +
+                        "reg a;" +
                         "endmodule\n");
     }
 }
