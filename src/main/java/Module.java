@@ -1,10 +1,19 @@
 public class Module {
 
-    public Module(String text) {
+    private String name = "";
 
+    public Module(String name) {
+        this.name = name;
     }
 
     public String getText() {
-        return "";
+        String str = "";
+        str += "module " + name + "();\n";
+        str += "endmodule\n";
+        return str;
+    }
+
+    public void addInput(String name) {
+
     }
 }

@@ -1,13 +1,31 @@
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateModule {
+class CreateModule {
 
     @Test
-    void createEmptyModule() throws FileNotFoundException {
+    void createEmptyModuleName() {
         Module module = new Module("NAME");
-        WorkWithFile.equals(new FileReader("src/test/resources/empty_module_NAME.sv"), module.getText());
+        assertEquals(module.getText(),
+                "module NAME();\n" +
+                "endmodule\n");
+    }
+
+    @Test
+    void createEmptyModuleName2() {
+        Module module = new Module("NAMETWO");
+        assertEquals(module.getText(),
+                "module NAMETWO();\n" +
+                        "endmodule\n");
+    }
+
+    @Test
+    void createEmptyModuleAddInput() {
+        Module module = new Module("NAMETWO");
+        module.addInput("a");
+        assertEquals(module.getText(),
+                "module NAMETWO(input a);\n" +
+                        "endmodule\n");
     }
 }
