@@ -11,7 +11,7 @@ class Module {
         this.name = name;
     }
 
-    String getText() {
+    String getModuleText() {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");
         if (inputs.size() > 0) {
@@ -46,5 +46,13 @@ class Module {
 
     void addOutput(String name) {
         outputs.add(name);
+    }
+
+    String getTestText(int number) {
+        StringBuilder str = new StringBuilder();
+        str.append("module " + name + "_test_" + number + "(output out);\n");
+        str.append("endmodule\n");
+        return str.toString();
+
     }
 }

@@ -7,7 +7,7 @@ class CreateModule {
     @Test
     void createEmptyModuleName() {
         Module module = new Module("NAME");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAME();\n" +
                 "endmodule\n");
     }
@@ -15,7 +15,7 @@ class CreateModule {
     @Test
     void createEmptyModuleName2() {
         Module module = new Module("NAMETWO");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO();\n" +
                         "endmodule\n");
     }
@@ -24,7 +24,7 @@ class CreateModule {
     void createEmptyModuleAddInput() {
         Module module = new Module("NAMETWO");
         module.addInput("a");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO(input a);\n" +
                         "endmodule\n");
     }
@@ -34,7 +34,7 @@ class CreateModule {
         Module module = new Module("NAMETWO");
         module.addInput("a");
         module.addInput("b");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO(input a, b);\n" +
                         "endmodule\n");
     }
@@ -43,7 +43,7 @@ class CreateModule {
     void createEmptyModuleAddOutput() {
         Module module = new Module("NAMETWO");
         module.addOutput("a");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO(output a);\n" +
                         "endmodule\n");
     }
@@ -53,7 +53,7 @@ class CreateModule {
         Module module = new Module("NAMETWO");
         module.addOutput("a");
         module.addOutput("b");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO(output a, b);\n" +
                         "endmodule\n");
     }
@@ -65,7 +65,7 @@ class CreateModule {
         module.addInput("b");
         module.addOutput("c");
         module.addOutput("d");
-        assertEquals(module.getText(),
+        assertEquals(module.getModuleText(),
                 "module NAMETWO(input a, b, output c, d);\n" +
                         "endmodule\n");
     }
