@@ -30,4 +30,8 @@ class Module {
     void addInput(String name) {
         inputs.add(name);
     }
+
+    void addOutput(String name) {
+
+    }
 }

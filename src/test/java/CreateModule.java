@@ -38,4 +38,13 @@ class CreateModule {
                 "module NAMETWO(input a, b);\n" +
                         "endmodule\n");
     }
+
+    @Test
+    void createEmptyModuleOutputInput() {
+        Module module = new Module("NAMETWO");
+        module.addOutput("a");
+        assertEquals(module.getText(),
+                "module NAMETWO(output a);\n" +
+                        "endmodule\n");
+    }
 }
