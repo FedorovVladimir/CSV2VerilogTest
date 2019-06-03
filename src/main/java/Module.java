@@ -15,8 +15,11 @@ class Module {
         str.append("module ").append(name).append("(");
         if (inputs.size() > 0) {
             str.append("input");
-            for (String inp: inputs) {
-                str.append(" ").append(inp);
+            for (int i = 0; i < inputs.size(); i++) {
+                if (i > 0) {
+                    str.append(",");
+                }
+                str.append(" ").append(inputs.get(i));
             }
         }
         str.append(");\n");
