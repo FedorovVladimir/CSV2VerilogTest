@@ -1,19 +1,30 @@
-public class Module {
+import java.util.LinkedList;
+import java.util.List;
+
+class Module {
 
     private String name = "";
+    private List<String> inputs = new LinkedList<String>();
 
-    public Module(String name) {
+    Module(String name) {
         this.name = name;
     }
 
-    public String getText() {
-        String str = "";
-        str += "module " + name + "();\n";
-        str += "endmodule\n";
-        return str;
+    String getText() {
+        StringBuilder str = new StringBuilder();
+        str.append("module ").append(name).append("(");
+        if (inputs.size() > 0) {
+            str.append("input");
+            for (String inp: inputs) {
+                str.append(" ").append(inp);
+            }
+        }
+        str.append(");\n");
+        str.append("endmodule\n");
+        return str.toString();
     }
 
-    public void addInput(String name) {
-
+    void addInput(String name) {
+        inputs.add(name);
     }
 }
