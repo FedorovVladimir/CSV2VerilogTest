@@ -2,40 +2,67 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class WorkWithFileTest {
 
     @Test
-    void openEqualsFileTest() {
-        FileReader reader = null;
-        FileReader reader2 = null;
+    void EqualsFileTest() {
         try {
-            reader = new FileReader("src/test/resources/test.txt");
-            reader2 = new FileReader("src/test/resources/test.txt");
+            FileReader reader = new FileReader("src/test/resources/test.txt");
+            FileReader reader2 = new FileReader("src/test/resources/test.txt");
+            assertTrue(WorkWithFile.equals(reader, reader2));
+            reader.close();
+            reader2.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        assertNotNull(reader);
-        assertNotNull(reader2);
-        assertTrue(WorkWithFile.fileEquals(reader, reader2));
     }
 
     @Test
-    void openNotEqualsFileTest() {
-        FileReader reader = null;
-        FileReader reader2 = null;
+    void NotEqualsFileTest() {
         try {
-            reader = new FileReader("src/test/resources/test.txt");
-            reader2 = new FileReader("src/test/resources/test2.txt");
+            FileReader reader = new FileReader("src/test/resources/test.txt");
+            FileReader reader2 = new FileReader("src/test/resources/test2.txt");
+            assertFalse(WorkWithFile.equals(reader, reader2));
+            reader.close();
+            reader2.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        assertNotNull(reader);
-        assertNotNull(reader2);
-        assertFalse(WorkWithFile.fileEquals(reader, reader2));
     }
 
+    @Test
+    void EqualsFileAndStringTest() {
+        try {
+            FileReader reader = new FileReader("src/test/resources/test.txt");
+            assertNotNull(reader);
+            assertTrue(WorkWithFile.equals(reader, "Hello, Verilog!"));
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Test
+    void NotEqualsFileAndStringTest() {
+        try {
+            FileReader reader = new FileReader("src/test/resources/test.txt");
+            assertNotNull(reader);
+            assertFalse(WorkWithFile.equals(reader, "Hello, verilog!"));
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
