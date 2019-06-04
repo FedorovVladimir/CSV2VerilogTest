@@ -15,6 +15,6 @@ public class CreateAssertEquals {
                         "\t\telse\n" +
                         "\t\t\tassign out = 1'b0;\n" +
                         "\tend\n" +
-                        "endmodule");
+                        "endmodule\n");
     }
 }

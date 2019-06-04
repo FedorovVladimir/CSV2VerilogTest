@@ -22,7 +22,7 @@ class Module {
                 "\t\telse\n" +
                 "\t\t\tassign out = 1'b0;\n" +
                 "\tend\n" +
-                "endmodule";
+                "endmodule\n";
     }
 
     String getModuleText() {
