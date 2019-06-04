@@ -17,25 +17,13 @@ class Module {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");
         if (inputs.size() > 0) {
-            str.append("input");
-            for (int i = 0; i < inputs.size(); i++) {
-                if (i > 0) {
-                    str.append(",");
-                }
-                str.append(" ").append(inputs.get(i));
-            }
+            str.append("input ").append(String.join(", ", inputs));
         }
         if (outputs.size() > 0) {
             if (inputs.size() > 0) {
                 str.append(", ");
             }
-            str.append("output");
-            for (int i = 0; i < outputs.size(); i++) {
-                if (i > 0) {
-                    str.append(",");
-                }
-                str.append(" ").append(outputs.get(i));
-            }
+            str.append("output ").append(String.join(", ", outputs));
         }
         str.append(");\n");
         str.append("endmodule\n");
@@ -59,21 +47,11 @@ class Module {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("_test_").append(number).append("(output out);\n");
         if (inputs.size() > 0) {
-            str.append("\treg");
-            for (int i = 0; i < inputs.size(); i++) {
-                if (i > 0) {
-                    str.append(",");
-                }
-                str.append(" ").append(inputs.get(i));
-            }
-            for (int i = 0; i < outputs.size(); i++) {
-                if (i > 0 || inputs.size() > 0) {
-                    str.append(",");
-                }
-                str.append(" ").append(outputs.get(i));
-            }
+            str.append("\treg ").append(String.join(", ", inputs));
+            str.append(", ");
+            str.append(String.join(", ", outputs));
+            str.append(";\n");
         }
-        str.append(";\n");
 
         str.append("\t").append(name).append(" ").append(name.charAt(0)).append("(");
         if (inputs.size() > 0) {
