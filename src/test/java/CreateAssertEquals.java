@@ -1,8 +1,9 @@
+import model.Module;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateAssertEquals {
+class CreateAssertEquals {
 
     @Test
     void createAssertEquals() {

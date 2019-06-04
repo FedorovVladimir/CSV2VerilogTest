@@ -4,10 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import model.Module;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -40,6 +42,13 @@ public class Controller implements Initializable {
     @FXML
     private Button ButtonAddOutput;
 
+    @FXML
+    private TextArea Code;
+
+    @FXML
+    private Button ButtonReset;
+
+    private String nameModule = "";
     private List<ViewLine> inputsLines = new LinkedList<>();
     private List<ViewLine> outputsLines = new LinkedList<>();
 
@@ -47,7 +56,10 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         LabelNameModule.setText("");
 
-        TextFieldNameModule.textProperty().addListener((ov, oldV, newV) -> LabelNameModule.setText(newV));
+        TextFieldNameModule.textProperty().addListener((ov, oldV, newV) -> {
+            nameModule = newV;
+            update();
+        });
 
         ButtonAddInput.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             if (!TextFieldNameInput.getText().equals("")) {
@@ -55,7 +67,10 @@ public class Controller implements Initializable {
                 TextFieldNameInput.setText("");
             }
         });
-        ButtonAddInput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> updateLinesPositions());
+        ButtonAddInput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
+            updateLinesPositions();
+            update();
+        });
 
         ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             if (!TextFieldNameOutput.getText().equals("")) {
@@ -64,7 +79,47 @@ public class Controller implements Initializable {
                 TextFieldNameOutput.setText("");
             }
         });
-        ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> updateLinesPositions());
+        ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
+            updateLinesPositions();
+            update();
+        });
+
+        ButtonReset.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            nameModule = "";
+            TextFieldNameModule.setText("");
+            for (ViewLine inputsLine : inputsLines) {
+                ModulePane.getChildren().remove(inputsLine.getLine());
+                ModulePane.getChildren().remove(inputsLine.getLabel());
+            }
+            for (ViewLine outputsLine : outputsLines) {
+                ModulePane.getChildren().remove(outputsLine.getLine());
+                ModulePane.getChildren().remove(outputsLine.getLabel());
+            }
+            inputsLines.clear();
+            outputsLines.clear();
+        });
+        ButtonReset.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
+            updateLinesPositions();
+            update();
+        });
+
+        update();
+    }
+
+    private void update() {
+        LabelNameModule.setText(nameModule);
+        if (!nameModule.equals("")) {
+            Module module = new Module(nameModule);
+            for (ViewLine inputsLine : inputsLines) {
+                module.addInput(inputsLine.getLabel().getText());
+            }
+            for (ViewLine outputsLine : outputsLines) {
+                module.addOutput(outputsLine.getLabel().getText());
+            }
+            Code.setText(module.getModuleText());
+        } else {
+            Code.setText("Enter the name of the module.");
+        }
     }
 
     private void addLineInput(ViewLine viewLine) {

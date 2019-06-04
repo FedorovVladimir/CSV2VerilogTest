@@ -1,7 +1,9 @@
+package model;
+
 import java.util.LinkedList;
 import java.util.List;
 
-class Module {
+public class Module {
 
     private String name;
     private int number;
@@ -10,16 +12,16 @@ class Module {
     private List<String> outputs = new LinkedList<>();
     private List<String> outputsValues = new LinkedList<>();
 
-    Module(String name) {
+    public Module(String name) {
         this.name = name;
     }
 
-    Module(String name, int number) {
+    public Module(String name, int number) {
         this.name = name;
         this.number = number;
     }
 
-    static String getTestAssertEquals() {
+    public static String getTestAssertEquals() {
         return "module assertEquals(input a, b, output reg out);\n" +
                 "\tinitial begin \n" +
                 "\t\t#1\n" +
@@ -39,7 +41,7 @@ class Module {
         return name;
     }
 
-    String getModuleText() {
+    public String getModuleText() {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");
         if (inputs.size() > 0) {
@@ -56,20 +58,20 @@ class Module {
         return str.toString();
     }
 
-    void addInput(String name) {
+    public void addInput(String name) {
         inputs.add(name);
     }
 
-    void addOutput(String name) {
+    public void addOutput(String name) {
         outputs.add(name);
     }
 
-    void addOutput(String name, int value) {
+    public void addOutput(String name, int value) {
         outputs.add(name);
         outputsValues.add(String.valueOf(value));
     }
 
-    String getTestText() {
+    public String getTestText() {
         if (number == 0) {
             return "Error " + name;
         }
@@ -132,7 +134,7 @@ class Module {
         str.append(String.join(", ", outputs));
     }
 
-    void addInput(String name, int value) {
+    public void addInput(String name, int value) {
         inputs.add(name);
         inputsValues.add(String.valueOf(value));
     }

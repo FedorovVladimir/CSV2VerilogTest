@@ -1,15 +1,17 @@
+package model;
+
 import java.util.LinkedList;
 import java.util.List;
 
-class AllTests {
+public class AllTests {
 
     private List<Module> modules = new LinkedList<>();
 
-    void add(Module module) {
+    public void add(Module module) {
         modules.add(module);
     }
 
-    String getText() {
+    public String getText() {
         if (modules.size() < 1) {
             return "";
         }
