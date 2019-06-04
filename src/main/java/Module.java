@@ -4,10 +4,10 @@ import java.util.List;
 class Module {
 
     private String name;
-    private List<String> inputs = new LinkedList<String>();
-    private List<String> inputsValues = new LinkedList<String>();
-    private List<String> outputs = new LinkedList<String>();
-    private List<String> outputsValues = new LinkedList<String>();
+    private List<String> inputs = new LinkedList<>();
+    private List<String> inputsValues = new LinkedList<>();
+    private List<String> outputs = new LinkedList<>();
+    private List<String> outputsValues = new LinkedList<>();
 
     Module(String name) {
         this.name = name;
@@ -46,38 +46,23 @@ class Module {
     String getTestText(int number) {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("_test_").append(number).append("(output out);\n");
-        if (inputs.size() > 0) {
-            str.append("\treg ").append(String.join(", ", inputs));
-            str.append(", ");
-            str.append(String.join(", ", outputs));
+        if (inputs.size() + outputs.size() > 0) {
+            str.append("\treg ");
+            listAllRegs(str);
             str.append(";\n");
         }
 
         str.append("\t").append(name).append(" ").append(name.charAt(0)).append("(");
-        if (inputs.size() > 0) {
-            for (int i = 0; i < inputs.size(); i++) {
-                if (i > 0) {
-                    str.append(", ");
-                }
-                str.append(inputs.get(i));
-            }
-            for (int i = 0; i < outputs.size(); i++) {
-                if (i > 0 || inputs.size() > 0) {
-                    str.append(",");
-                }
-                str.append(" ").append(outputs.get(i));
-            }
+        if (inputs.size() + outputs.size() > 0) {
+            listAllRegs(str);
         }
         str.append(");\n");
 
-        str.append("\treg ");
-        for (int i = 0; i < outputs.size(); i++) {
-            if (i > 0) {
-                str.append(", ");
-            }
-            str.append("test_").append(outputs.get(i));
+        if (outputs.size() > 0) {
+            str.append("\treg ");
+            str.append("test_").append(String.join(", test_", outputs));
+            str.append(";\n");
         }
-        str.append(";\n");
 
         for (int i = 0; i < outputs.size(); i++) {
             str.append("\tassertEquals t").append(i + 1).append("(");
@@ -98,6 +83,14 @@ class Module {
         str.append("\tend\n");
         str.append("endmodule\n");
         return str.toString();
+    }
+
+    private void listAllRegs(StringBuilder str) {
+        str.append(String.join(", ", inputs));
+        if (inputs.size() > 0) {
+            str.append(", ");
+        }
+        str.append(String.join(", ", outputs));
     }
 
     void addInput(String name, int value) {
