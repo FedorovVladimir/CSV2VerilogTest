@@ -3,7 +3,7 @@ import java.util.List;
 
 class Module {
 
-    private String name = "";
+    private String name;
     private List<String> inputs = new LinkedList<String>();
     private List<String> outputs = new LinkedList<String>();
 
@@ -50,7 +50,7 @@ class Module {
 
     String getTestText(int number) {
         StringBuilder str = new StringBuilder();
-        str.append("module " + name + "_test_" + number + "(output out);\n");
+        str.append("module ").append(name).append("_test_").append(number).append("(output out);\n");
         if (inputs.size() > 0) {
             str.append("\treg");
             for (int i = 0; i < inputs.size(); i++) {
@@ -67,6 +67,24 @@ class Module {
             }
         }
         str.append(";\n");
+
+        str.append("\t").append(name).append(" ").append(name.charAt(0)).append("(");
+        if (inputs.size() > 0) {
+            for (int i = 0; i < inputs.size(); i++) {
+                if (i > 0) {
+                    str.append(", ");
+                }
+                str.append(inputs.get(i));
+            }
+            for (int i = 0; i < outputs.size(); i++) {
+                if (i > 0 || inputs.size() > 0) {
+                    str.append(",");
+                }
+                str.append(" ").append(outputs.get(i));
+            }
+        }
+        str.append(");\n");
+
         str.append("\tinitial begin\n");
         str.append("\tend\n");
         str.append("endmodule\n");
