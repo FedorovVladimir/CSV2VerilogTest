@@ -88,13 +88,11 @@ class Module {
         }
         str.append(");\n");
 
-        if (outputs.size() > 0) {
-            str.append("\treg ");
-            str.append("test_").append(String.join(", test_", outputs));
-            str.append(";\n");
-        }
-
         for (int i = 0; i < outputs.size(); i++) {
+            str.append("\treg ");
+            str.append("test_").append(outputs.get(i));
+            str.append(", res_").append(outputs.get(i));
+            str.append(";\n");
             str.append("\tassertEquals t").append(i + 1).append("(");
             str.append(outputs.get(i)).append(", test_").append(outputs.get(i)).append(", res_").append(outputs.get(i));
             str.append(");\n");
@@ -112,12 +110,9 @@ class Module {
 
         str.append("\t\t#1\n");
 
-        str.append("\t\tif (res_").append(outputs.get(0)).append(" == 1\n");
+        str.append("\t\tif (res_").append(outputs.get(0)).append(" == 1");
         for (int i = 1; i < outputsValues.size(); i++) {
-            str.append("\t\t\t&& res_").append(outputs.get(i)).append(" == 1");
-            if (i < outputsValues.size() - 1) {
-                str.append("\n");
-            }
+            str.append("\n\t\t\t&& res_").append(outputs.get(i)).append(" == 1");
         }
         str.append(")\n");
         str.append("\t\t\tassign out = 1'b1;\n");
