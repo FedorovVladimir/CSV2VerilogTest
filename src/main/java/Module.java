@@ -13,6 +13,18 @@ class Module {
         this.name = name;
     }
 
+    static String getTestAssertEquals() {
+        return "module assertEquals(input a, b, output reg out);\n" +
+                "\tinitial begin \n" +
+                "\t\t#1\n" +
+                "\t\tif (a == b)\n" +
+                "\t\t\tassign out = 1'b1;\n" +
+                "\t\telse\n" +
+                "\t\t\tassign out = 1'b0;\n" +
+                "\tend\n" +
+                "endmodule";
+    }
+
     String getModuleText() {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");
