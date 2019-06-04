@@ -41,6 +41,7 @@ public class Controller implements Initializable {
     private Button ButtonAddOutput;
 
     private List<ViewLine> inputsLines = new LinkedList<>();
+    private List<ViewLine> outputsLines = new LinkedList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,36 +49,39 @@ public class Controller implements Initializable {
 
         TextFieldNameModule.textProperty().addListener((ov, oldV, newV) -> LabelNameModule.setText(newV));
 
-        ButtonAddInput.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+        ButtonAddInput.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             if (!TextFieldNameInput.getText().equals("")) {
                 addLineInput(new ViewLine(TextFieldNameInput.getText()));
                 TextFieldNameInput.setText("");
             }
         });
+        ButtonAddInput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> updateLinesPositions());
 
-        ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+        ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             if (!TextFieldNameOutput.getText().equals("")) {
-                addLineInput(new ViewLine(TextFieldNameOutput.getText()));
+                ViewLine viewLine = new ViewLine(TextFieldNameOutput.getText());
+                addLineOutput(viewLine);
                 TextFieldNameOutput.setText("");
             }
         });
+        ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> updateLinesPositions());
     }
 
     private void addLineInput(ViewLine viewLine) {
         inputsLines.add(viewLine);
         ModulePane.getChildren().add(0, viewLine.getLabel());
         ModulePane.getChildren().add(0, viewLine.getLine());
-        updateInputsPositions();
     }
 
-    private void updateInputsPositions() {
+    private void updateLinesPositions() {
         double xStart = RectangleModule.getLayoutX();
         double yStart = RectangleModule.getLayoutY();
         double w = RectangleModule.getWidth();
         double h = RectangleModule.getHeight();
 
         double step = h / (inputsLines.size() + 1);
-        while (step < 30) {
+        double step2 = h / (outputsLines.size() + 1);
+        while (step < 30 || step2 < 30) {
             RectangleModule.setHeight(h + 2);
             RectangleModule.setLayoutY(yStart - 1);
             xStart = RectangleModule.getLayoutX();
@@ -85,10 +89,23 @@ public class Controller implements Initializable {
             w = RectangleModule.getWidth();
             h = RectangleModule.getHeight();
             step = h / (inputsLines.size() + 1);
+            step2 = h / (outputsLines.size() + 1);
         }
 
         for (int i = 0; i < inputsLines.size(); i++) {
-            inputsLines.get(i).setPosition(100, yStart + step * (i+1), xStart + w/2, yStart + step * (i+1));
+            inputsLines.get(i).setPositionInput(100, yStart + step * (i+1), xStart + w/2, yStart + step * (i+1));
         }
+
+        for (int i = 0; i < outputsLines.size(); i++) {
+            outputsLines.get(i).setPositionOutput(xStart + w/2, yStart + step2 * (i+1), ModulePane.getWidth() - 100, yStart + step2 * (i+1));
+        }
+
+        LabelNameModule.setLayoutY(RectangleModule.getLayoutY() - 20);
+    }
+
+    private void addLineOutput(ViewLine viewLine) {
+        outputsLines.add(viewLine);
+        ModulePane.getChildren().add(0, viewLine.getLabel());
+        ModulePane.getChildren().add(0, viewLine.getLine());
     }
 }

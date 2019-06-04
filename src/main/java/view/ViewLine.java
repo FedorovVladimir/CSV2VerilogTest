@@ -13,6 +13,7 @@ class ViewLine{
         label = new Label(name);
         label.setFont(new Font("System", 14));
         line = new Line();
+        setPosition(-100, -100, -100, -100);
     }
 
     Label getLabel() {
@@ -23,12 +24,22 @@ class ViewLine{
         return line;
     }
 
-    void setPosition(double x, double y, double x2, double y2) {
-        label.setLayoutX(x);
+    private void setPosition(double x, double y, double x2, double y2) {
         label.setLayoutY(y - 22);
         line.setStartX(x);
         line.setEndX(x2);
         line.setStartY(y);
         line.setEndY(y2);
+        System.out.println("update");
+    }
+
+    void setPositionInput(double x, double y, double x2, double y2) {
+        label.setLayoutX(x);
+        setPosition(x, y, x2, y2);
+    }
+
+    void setPositionOutput(double x, double y, double x2, double y2) {
+        label.setLayoutX(x2 - label.getWidth());
+        setPosition(x, y, x2, y2);
     }
 }
