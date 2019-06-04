@@ -28,6 +28,10 @@ class AllTests {
         str.append("\t\tif (res_1 == 0)\n");
         str.append("\t\t\t$display(\"Fail test ").append(modules.get(0).getName()).append("_test_").append(modules.get(0).getNumber()).append("\");\n");
 
+        for (int i = 1; i < modules.size(); i++) {
+            str.append("\t\telse if (res_").append(i+1).append(" == 0)\n");
+            str.append("\t\t\t$display(\"Fail test ").append(modules.get(i).getName()).append("_test_").append(modules.get(i).getNumber()).append("\");\n");
+        }
 
         str.append("\t\telse\n");
         str.append("\t\t\t$display(\"Success!\");\n");
