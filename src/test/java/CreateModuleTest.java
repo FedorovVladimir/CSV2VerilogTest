@@ -15,6 +15,9 @@ class CreateModuleTest {
                 "module NAMETWO_test_1(output out);\n" +
                         "\treg a, b, c, d;\n" +
                         "\tNAMETWO N(a, b, c, d);\n" +
+                        "\treg test_c, test_d;\n" +
+                        "\tassertEquals t1(c, test_c);\n" +
+                        "\tassertEquals t2(d, test_d);\n" +
                         "\tinitial begin\n" +
                         "\tend\n" +
                         "endmodule\n");

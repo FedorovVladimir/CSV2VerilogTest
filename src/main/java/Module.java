@@ -85,6 +85,21 @@ class Module {
         }
         str.append(");\n");
 
+        str.append("\treg ");
+        for (int i = 0; i < outputs.size(); i++) {
+            if (i > 0) {
+                str.append(", ");
+            }
+            str.append("test_").append(outputs.get(i));
+        }
+        str.append(";\n");
+
+        for (int i = 0; i < outputs.size(); i++) {
+            str.append("\tassertEquals t").append(i + 1).append("(");
+            str.append(outputs.get(i)).append(", test_").append(outputs.get(i));
+            str.append(");\n");
+        }
+
         str.append("\tinitial begin\n");
         str.append("\tend\n");
         str.append("endmodule\n");
