@@ -8,9 +8,14 @@ class CreateModuleTest {
     void createEmptyModuleTest1() {
         Module module = new Module("NAMETWO");
         module.addInput("a");
+        module.addInput("b");
+        module.addOutput("c");
+        module.addOutput("d");
         assertEquals(module.getTestText(1),
                 "module NAMETWO_test_1(output out);\n" +
-                        "\treg a;\n" +
+                        "\treg a, b, c, d;\n" +
+                        "initial begin\n" +
+                        "end\n" +
                         "endmodule\n");
     }
 }
