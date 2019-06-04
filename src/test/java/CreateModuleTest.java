@@ -8,9 +8,9 @@ class CreateModuleTest {
     void createEmptyModuleTest1() {
         Module module = new Module("NAMETWO");
         module.addInput("a", 1);
-        module.addInput("b");
-        module.addOutput("c");
-        module.addOutput("d");
+        module.addInput("b", 1);
+        module.addOutput("c", 0);
+        module.addOutput("d", 0);
         assertEquals(module.getTestText(1),
                 "module NAMETWO_test_1(output out);\n" +
                         "\treg a, b, c, d;\n" +

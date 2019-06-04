@@ -7,6 +7,7 @@ class Module {
     private List<String> inputs = new LinkedList<String>();
     private List<String> inputsValues = new LinkedList<String>();
     private List<String> outputs = new LinkedList<String>();
+    private List<String> outputsValues = new LinkedList<String>();
 
     Module(String name) {
         this.name = name;
@@ -47,6 +48,11 @@ class Module {
 
     void addOutput(String name) {
         outputs.add(name);
+    }
+
+    void addOutput(String name, int value) {
+        outputs.add(name);
+        outputsValues.add(String.valueOf(value));
     }
 
     String getTestText(int number) {
