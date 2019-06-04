@@ -4,6 +4,7 @@ import java.util.List;
 class Module {
 
     private String name;
+    private int number;
     private List<String> inputs = new LinkedList<>();
     private List<String> inputsValues = new LinkedList<>();
     private List<String> outputs = new LinkedList<>();
@@ -11,6 +12,11 @@ class Module {
 
     Module(String name) {
         this.name = name;
+    }
+
+    Module(String name, int number) {
+        this.name = name;
+        this.number = number;
     }
 
     static String getTestAssertEquals() {
@@ -23,6 +29,14 @@ class Module {
                 "\t\t\tassign out = 1'b0;\n" +
                 "\tend\n" +
                 "endmodule\n";
+    }
+
+    int getNumber() {
+        return number;
+    }
+
+    String getName() {
+        return name;
     }
 
     String getModuleText() {
@@ -55,9 +69,13 @@ class Module {
         outputsValues.add(String.valueOf(value));
     }
 
-    String getTestText(int number) {
+    String getTestText() {
+        if (number == 0) {
+            return "Error " + name;
+        }
+
         StringBuilder str = new StringBuilder();
-        str.append("module ").append(name).append("_test_").append(number).append("(output out);\n");
+        str.append("module ").append(name).append("_test_").append(number).append("(output reg out);\n");
         if (inputs.size() + outputs.size() > 0) {
             str.append("\treg ");
             listAllRegs(str);
@@ -78,7 +96,7 @@ class Module {
 
         for (int i = 0; i < outputs.size(); i++) {
             str.append("\tassertEquals t").append(i + 1).append("(");
-            str.append(outputs.get(i)).append(", test_").append(outputs.get(i));
+            str.append(outputs.get(i)).append(", test_").append(outputs.get(i)).append(", res_").append(outputs.get(i));
             str.append(");\n");
         }
 
@@ -91,6 +109,20 @@ class Module {
         for (int i = 0; i < outputs.size(); i++) {
             str.append("\t\ttest_").append(outputs.get(i)).append(" = ").append(outputsValues.get(i)).append(";\n");
         }
+
+        str.append("\t\t#1\n");
+
+        str.append("\t\tif (res_").append(outputs.get(0)).append(" == 1\n");
+        for (int i = 1; i < outputsValues.size(); i++) {
+            str.append("\t\t\t&& res_").append(outputs.get(i)).append(" == 1");
+            if (i < outputsValues.size() - 1) {
+                str.append("\n");
+            }
+        }
+        str.append(")\n");
+        str.append("\t\t\tassign out = 1'b1;\n");
+        str.append("\t\telse\n");
+        str.append("\t\t\tassign out = 1'b0;\n");
 
         str.append("\tend\n");
         str.append("endmodule\n");
