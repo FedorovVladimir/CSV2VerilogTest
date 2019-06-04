@@ -7,7 +7,7 @@ class CreateModuleTest {
     @Test
     void createEmptyModuleTest1() {
         Module module = new Module("NAMETWO");
-        module.addInput("a");
+        module.addInput("a", 1);
         module.addInput("b");
         module.addOutput("c");
         module.addOutput("d");
@@ -19,6 +19,7 @@ class CreateModuleTest {
                         "\tassertEquals t1(c, test_c);\n" +
                         "\tassertEquals t2(d, test_d);\n" +
                         "\tinitial begin\n" +
+                        "\t\ta = 1;\n" +
                         "\tend\n" +
                         "endmodule\n");
     }

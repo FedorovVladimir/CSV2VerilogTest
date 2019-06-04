@@ -5,6 +5,7 @@ class Module {
 
     private String name;
     private List<String> inputs = new LinkedList<String>();
+    private List<String> inputsValues = new LinkedList<String>();
     private List<String> outputs = new LinkedList<String>();
 
     Module(String name) {
@@ -104,5 +105,10 @@ class Module {
         str.append("\tend\n");
         str.append("endmodule\n");
         return str.toString();
+    }
+
+    void addInput(String name, int value) {
+        inputs.add(name);
+        inputsValues.add(String.valueOf(value));
     }
 }
