@@ -20,6 +20,9 @@ class CreateModuleTest {
                         "\tassertEquals t2(d, test_d);\n" +
                         "\tinitial begin\n" +
                         "\t\ta = 1;\n" +
+                        "\t\tb = 1;\n" +
+                        "\t\tc = 0;\n" +
+                        "\t\td = 0;\n" +
                         "\tend\n" +
                         "endmodule\n");
     }
