@@ -14,8 +14,8 @@ class CreateModuleTest {
         assertEquals(module.getTestText(1),
                 "module NAMETWO_test_1(output out);\n" +
                         "\treg a, b, c, d;\n" +
-                        "initial begin\n" +
-                        "end\n" +
+                        "\tinitial begin\n" +
+                        "\tend\n" +
                         "endmodule\n");
     }
 }

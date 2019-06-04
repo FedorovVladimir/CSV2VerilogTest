@@ -59,8 +59,16 @@ class Module {
                 }
                 str.append(" ").append(inputs.get(i));
             }
+            for (int i = 0; i < outputs.size(); i++) {
+                if (i > 0 || inputs.size() > 0) {
+                    str.append(",");
+                }
+                str.append(" ").append(outputs.get(i));
+            }
         }
         str.append(";\n");
+        str.append("\tinitial begin\n");
+        str.append("\tend\n");
         str.append("endmodule\n");
         return str.toString();
     }
