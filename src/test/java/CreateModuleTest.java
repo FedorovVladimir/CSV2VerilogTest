@@ -21,8 +21,8 @@ class CreateModuleTest {
                         "\tinitial begin\n" +
                         "\t\ta = 1;\n" +
                         "\t\tb = 1;\n" +
-                        "\t\tc = 0;\n" +
-                        "\t\td = 0;\n" +
+                        "\t\ttest_c = 0;\n" +
+                        "\t\ttest_d = 0;\n" +
                         "\tend\n" +
                         "endmodule\n");
     }

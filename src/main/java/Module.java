@@ -108,6 +108,15 @@ class Module {
         }
 
         str.append("\tinitial begin\n");
+
+        for (int i = 0; i < inputs.size(); i++) {
+            str.append("\t\t").append(inputs.get(i)).append(" = ").append(inputsValues.get(i)).append(";\n");
+        }
+
+        for (int i = 0; i < outputs.size(); i++) {
+            str.append("\t\ttest_").append(outputs.get(i)).append(" = ").append(outputsValues.get(i)).append(";\n");
+        }
+
         str.append("\tend\n");
         str.append("endmodule\n");
         return str.toString();
