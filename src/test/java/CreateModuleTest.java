@@ -10,7 +10,7 @@ class CreateModuleTest {
         module.addInput("a");
         assertEquals(module.getTestText(1),
                 "module NAMETWO_test_1(output out);\n" +
-                        "reg a;" +
+                        "\treg a;\n" +
                         "endmodule\n");
     }
 }

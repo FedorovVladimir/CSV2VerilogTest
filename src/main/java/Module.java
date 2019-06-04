@@ -51,8 +51,17 @@ class Module {
     String getTestText(int number) {
         StringBuilder str = new StringBuilder();
         str.append("module " + name + "_test_" + number + "(output out);\n");
+        if (inputs.size() > 0) {
+            str.append("\treg");
+            for (int i = 0; i < inputs.size(); i++) {
+                if (i > 0) {
+                    str.append(",");
+                }
+                str.append(" ").append(inputs.get(i));
+            }
+        }
+        str.append(";\n");
         str.append("endmodule\n");
         return str.toString();
-
     }
 }
