@@ -5,7 +5,7 @@ class AllTests {
 
     private List<Module> modules = new LinkedList<>();
 
-    public void add(Module module) {
+    void add(Module module) {
         modules.add(module);
     }
 
