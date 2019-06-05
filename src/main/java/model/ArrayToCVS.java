@@ -2,6 +2,7 @@ package model;
 
 public class ArrayToCVS implements TextMaker {
 
+    private String[] marks;
     private String[] headers;
     private int[][] rows;
 
@@ -11,6 +12,10 @@ public class ArrayToCVS implements TextMaker {
 
     public void setRows(int[][] rows) {
         this.rows = rows;
+    }
+
+    public void setMarks(String[] marks) {
+        this.marks = marks;
     }
 
     @Override
