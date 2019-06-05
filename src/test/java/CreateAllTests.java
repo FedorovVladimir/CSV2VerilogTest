@@ -1,5 +1,6 @@
 import model.AllTests;
 import model.Module;
+import model.TestModule;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,11 +9,11 @@ class CreateAllTests {
 
     @Test
     void createAllTestsModule() {
-        Module module = new Module("NAMETWO", 1);
-        module.addOutput("c", 0);
-        module.addOutput("d", 0);
+        TestModule testModule = new TestModule("NAMETWO", 1);
+        testModule.addOutput("c", 0);
+        testModule.addOutput("d", 0);
         AllTests allTests = new AllTests();
-        allTests.add(module);
+        allTests.add(testModule);
         assertEquals(allTests.getText(),
                 "module allTests();\n" +
                 "\treg res_1;\n" +
@@ -29,15 +30,15 @@ class CreateAllTests {
 
     @Test
     void createAllTestsModule2() {
-        Module module = new Module("NAMETWO", 1);
-        module.addOutput("c", 0);
-        module.addOutput("d", 0);
-        Module module2 = new Module("NAMETWO", 2);
-        module2.addOutput("c", 0);
-        module2.addOutput("d", 0);
+        TestModule testModule1 = new TestModule("NAMETWO", 1);
+        testModule1.addOutput("c", 0);
+        testModule1.addOutput("d", 0);
+        TestModule testModule2 = new TestModule("NAMETWO", 2);
+        testModule2.addOutput("c", 0);
+        testModule2.addOutput("d", 0);
         AllTests allTests = new AllTests();
-        allTests.add(module);
-        allTests.add(module2);
+        allTests.add(testModule1);
+        allTests.add(testModule2);
         assertEquals(allTests.getText(),
                 "module allTests();\n" +
                         "\treg res_1;\n" +

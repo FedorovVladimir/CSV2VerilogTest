@@ -1,4 +1,4 @@
-import model.Module;
+import model.TestModule;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,12 +7,12 @@ class CreateModuleTest {
 
     @Test
     void createEmptyModuleTest1() {
-        Module module = new Module("NAMETWO", 1);
-        module.addInput("a", 1);
-        module.addInput("b", 1);
-        module.addOutput("c", 0);
-        module.addOutput("d", 0);
-        assertEquals(module.getTestText(),
+        TestModule testModule = new TestModule("NAMETWO", 1);
+        testModule.addInput("a", 1);
+        testModule.addInput("b", 1);
+        testModule.addOutput("c", 0);
+        testModule.addOutput("d", 0);
+        assertEquals(testModule.getText(),
                 "module NAMETWO_test_1(output reg out);\n" +
                         "\treg a, b, c, d;\n" +
                         "\tNAMETWO N(a, b, c, d);\n" +
@@ -37,10 +37,10 @@ class CreateModuleTest {
 
     @Test
     void createEmptyModuleTest2() {
-        Module module = new Module("NAMETWO", 1);
-        module.addInput("a", 1);
-        module.addOutput("c", 0);
-        assertEquals(module.getTestText(),
+        TestModule testModule = new TestModule("NAMETWO", 1);
+        testModule.addInput("a", 1);
+        testModule.addOutput("c", 0);
+        assertEquals(testModule.getText(),
                 "module NAMETWO_test_1(output reg out);\n" +
                         "\treg a, c;\n" +
                         "\tNAMETWO N(a, c);\n" +

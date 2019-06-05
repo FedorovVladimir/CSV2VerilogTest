@@ -1,5 +1,6 @@
 import model.AllTests;
 import model.Module;
+import model.TestModule;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class Main {
 
         AllTests allTests = new AllTests();
         for (int i = 0; i < addrTests.length; i++) {
-            Module m = new Module(nameModule, i+1);
+            TestModule m = new TestModule(nameModule, i+1);
 
             for (int j = 0; j < addrInputsNames.length; j++) {
                 m.addInput(addrInputsNames[j], addrTests[i][j]);
@@ -53,7 +54,7 @@ public class Main {
             }
 
             // получаем текст каждого теста
-            System.out.println(m.getTestText());
+            System.out.println(m.getText());
             allTests.add(m);
         }
 
