@@ -16,10 +16,14 @@ public class ArrayToCVS implements TextMaker {
     @Override
     public String getText() {
         StringBuilder str = new StringBuilder();
-        str.append(String.join(", ", headers));
-        str.append("\n");
-        str.append(rows[0][0]);
-        str.append("\n");
+        str.append(String.join(", ", headers)).append("\n");
+        for (int[] row : rows) {
+            for (int i : row) {
+                str.append(i);
+            }
+            str.append("\n");
+        }
+
         return str.toString();
     }
 }

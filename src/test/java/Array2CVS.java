@@ -22,4 +22,26 @@ public class Array2CVS {
         assertEquals("a\n" +
                 "0\n", arrayToCVS.getText());
     }
+
+    @Test
+    void createHeadAndTwoRow() {
+        String[] headers = {
+                "a",
+                "b",
+        };
+
+        int[][] rows = {
+                {0,1},
+                {0,1},
+        };
+
+        ArrayToCVS arrayToCVS = new ArrayToCVS();
+        arrayToCVS.setHeaders(headers);
+        arrayToCVS.setRows(rows);
+
+        assertEquals("a, b\n" +
+                "0, 1\n" +
+                "0, 1\n",
+                arrayToCVS.getText());
+    }
 }
