@@ -21,6 +21,7 @@ class Array2CVS {
         };
 
         ArrayToCVS arrayToCVS = new ArrayToCVS();
+        arrayToCVS.setMarks(marks);
         arrayToCVS.setHeaders(headers);
         arrayToCVS.setRows(rows);
 

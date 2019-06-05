@@ -21,6 +21,7 @@ public class ArrayToCVS implements TextMaker {
     @Override
     public String getText() {
         StringBuilder str = new StringBuilder();
+        str.append(String.join(", ", marks)).append("\n");
         str.append(String.join(", ", headers)).append("\n");
         for (int[] row : rows) {
             for (int j = 0; j < row.length; j++) {
