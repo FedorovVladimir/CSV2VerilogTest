@@ -52,6 +52,9 @@ public class Controller implements Initializable {
     @FXML
     private Button ButtonReset;
 
+    @FXML
+    private Button ButtonCreateTests;
+
     private String nameModule = "";
     private List<ViewLine> inputsLines = new LinkedList<>();
     private List<ViewLine> outputsLines = new LinkedList<>();
@@ -105,6 +108,10 @@ public class Controller implements Initializable {
         ButtonReset.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
             updateLinesPositions();
             update();
+        });
+
+        ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            System.out.println("tessts");
         });
 
         update();

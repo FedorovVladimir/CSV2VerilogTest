@@ -58,5 +58,6 @@
             <Font size="14.0" />
          </font></TextArea>
       <Button fx:id="ButtonReset" layoutX="14.0" layoutY="673.0" mnemonicParsing="false" text="reset" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+      <Button fx:id="ButtonCreateTests" layoutX="65.0" layoutY="675.0" mnemonicParsing="false" text="create tests" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="70.0" />
    </children>
 </AnchorPane>
