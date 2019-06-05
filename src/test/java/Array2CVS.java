@@ -30,9 +30,13 @@ class Array2CVS {
                 "0\n", arrayToCVS.getText());
     }
 
-    @Disabled
     @Test
     void createHeadAndTwoRow() {
+        String[] marks = {
+                "i",
+                "i",
+        };
+
         String[] headers = {
                 "a",
                 "b",
@@ -44,18 +48,27 @@ class Array2CVS {
         };
 
         ArrayToCVS arrayToCVS = new ArrayToCVS();
+        arrayToCVS.setMarks(marks);
         arrayToCVS.setHeaders(headers);
         arrayToCVS.setRows(rows);
 
-        assertEquals("a, b\n" +
+        assertEquals("i, i\n" +
+                "a, b\n" +
                 "0, 1\n" +
                 "0, 1\n",
                 arrayToCVS.getText());
     }
 
-    @Disabled
     @Test
     void createHeadAndManyRow() {
+        String[] marks = {
+                "i",
+                "i",
+                "i",
+                "o",
+                "o",
+        };
+
         String[] headers = {
                 "a",
                 "b",
@@ -70,10 +83,12 @@ class Array2CVS {
         };
 
         ArrayToCVS arrayToCVS = new ArrayToCVS();
+        arrayToCVS.setMarks(marks);
         arrayToCVS.setHeaders(headers);
         arrayToCVS.setRows(rows);
 
-        assertEquals("a, b, cin, s, cout\n" +
+        assertEquals("i, i, i, o, o\n" +
+                        "a, b, cin, s, cout\n" +
                         "0, 0, 0, 0, 0\n" +
                         "0, 1, 0, 1, 0\n",
                 arrayToCVS.getText());
