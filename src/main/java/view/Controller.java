@@ -1,6 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import model.Module;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,6 +56,8 @@ public class Controller implements Initializable {
 
     @FXML
     private Button ButtonCreateTests;
+
+    private AnchorPane testsWindow;
 
     private String nameModule = "";
     private List<ViewLine> inputsLines = new LinkedList<>();
@@ -111,7 +115,15 @@ public class Controller implements Initializable {
         });
 
         ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            System.out.println("tessts");
+            Stage stage = new Stage();
+            try {
+                testsWindow = FXMLLoader.load(getClass().getResource("/create_tests.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setTitle("Create tests");
+                stage.setScene(new Scene(testsWindow, 960, 720));
+            stage.show();
         });
 
         update();
