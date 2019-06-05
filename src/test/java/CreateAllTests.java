@@ -1,5 +1,4 @@
 import model.AllTests;
-import model.Module;
 import model.TestModule;
 import org.junit.jupiter.api.Test;
 

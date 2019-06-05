@@ -1,4 +1,5 @@
 import model.AllTests;
+import model.AssertModule;
 import model.Module;
 import model.TestModule;
 
@@ -38,7 +39,7 @@ public class Main {
             module.addOutput(name);
         }
         // получаем текст модуля
-        System.out.println(module.getModuleText());
+        System.out.println(module.getText());
 
 
         AllTests allTests = new AllTests();
@@ -59,7 +60,7 @@ public class Main {
         }
 
         // получаем текст assertEquals
-        System.out.println(Module.getTestAssertEquals());
+        System.out.println(new AssertModule().getText());
 
         // получаем текст alltests
         System.out.println(allTests.getText());

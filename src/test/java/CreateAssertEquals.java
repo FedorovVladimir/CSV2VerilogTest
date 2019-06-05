@@ -1,4 +1,4 @@
-import model.Module;
+import model.AssertModule;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +7,7 @@ class CreateAssertEquals {
 
     @Test
     void createAssertEquals() {
-        assertEquals(Module.getTestAssertEquals(),
+        assertEquals(new AssertModule().getText(),
                 "module assertEquals(input a, b, output reg out);\n" +
                         "\tinitial begin \n" +
                         "\t\t#1\n" +

@@ -150,7 +150,7 @@ public class Controller implements Initializable {
             for (ViewLine outputsLine : outputsLines) {
                 module.addOutput(outputsLine.getLabel().getText());
             }
-            Code.setText(module.getModuleText());
+            Code.setText(module.getText());
         } else {
             Code.setText("Enter the name of the module.");
         }

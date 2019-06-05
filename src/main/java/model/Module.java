@@ -3,7 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Module {
+public class Module implements TextMaker {
 
     private String name;
     private List<String> inputs = new LinkedList<>();
@@ -13,19 +13,8 @@ public class Module {
         this.name = name;
     }
 
-    public static String getTestAssertEquals() {
-        return "module assertEquals(input a, b, output reg out);\n" +
-                "\tinitial begin \n" +
-                "\t\t#1\n" +
-                "\t\tif (a == b)\n" +
-                "\t\t\tassign out = 1'b1;\n" +
-                "\t\telse\n" +
-                "\t\t\tassign out = 1'b0;\n" +
-                "\tend\n" +
-                "endmodule\n";
-    }
-
-    public String getModuleText() {
+    @Override
+    public String getText() {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");
         if (inputs.size() > 0) {
