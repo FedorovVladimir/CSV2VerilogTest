@@ -18,8 +18,11 @@ public class ArrayToCVS implements TextMaker {
         StringBuilder str = new StringBuilder();
         str.append(String.join(", ", headers)).append("\n");
         for (int[] row : rows) {
-            for (int i : row) {
-                str.append(i);
+            for (int j = 0; j < row.length; j++) {
+                if (j > 0) {
+                    str.append(", ");
+                }
+                str.append(row[j]);
             }
             str.append("\n");
         }

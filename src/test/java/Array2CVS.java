@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Array2CVS {
+class Array2CVS {
 
     @Test
     void createHeadAndOneRow() {
