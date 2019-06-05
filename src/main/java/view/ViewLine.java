@@ -29,45 +29,6 @@ class ViewLine{
         line = new Line();
         setPosition(-100, -100, -100, -100);
 
-        button.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
-            if (!textField.getText().equals("")) {
-                label.setText(textField.getText());
-            }
-            newWindow.close();
-        });
-
-        label.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
-            Label secondLabel = new Label("Enter the new name of the module.");
-            textField.setText(label.getText());
-
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.getChildren().add(secondLabel);
-            anchorPane.getChildren().add(textField);
-            anchorPane.getChildren().add(button);
-
-            secondLabel.setLayoutX(20);
-            secondLabel.setLayoutY(20);
-
-            textField.setLayoutX(20);
-            textField.setLayoutY(55);
-
-            button.setLayoutX(20);
-            button.setLayoutY(100);
-
-            Scene secondScene = new Scene(anchorPane, 250, 140);
-
-            newWindow = new Stage();
-            newWindow.setTitle("settings");
-            newWindow.setScene(secondScene);
-
-            Toolkit kit = Toolkit.getDefaultToolkit();
-            Dimension screenSize = kit.getScreenSize();
-
-            newWindow.setX((double) screenSize.width/2 - secondScene.getWidth()/2);
-            newWindow.setY((double) screenSize.height/2 - secondScene.getHeight()/2);
-
-            newWindow.show();
-        });
         label.setOnMouseMoved(event -> label.setCursor(Cursor.HAND));
     }
 
@@ -77,6 +38,22 @@ class ViewLine{
 
     Line getLine() {
         return line;
+    }
+
+    TextField getTextField() {
+        return textField;
+    }
+
+    public Stage getNewWindow() {
+        return newWindow;
+    }
+
+    public void setNewWindow(Stage newWindow) {
+        this.newWindow = newWindow;
+    }
+
+    Button getButton() {
+        return button;
     }
 
     private void setPosition(double x, double y, double x2, double y2) {
