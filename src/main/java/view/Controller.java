@@ -15,7 +15,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Module;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.awt.*;
 import java.io.File;
@@ -177,6 +181,18 @@ public class Controller implements Initializable {
             stage.show();
 
             controllerGitCommit.setModule(update());
+        });
+
+        ButtonPush.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                File gitFile = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\.git");
+                Git git = Git.open(gitFile);
+                PushCommand pushCommand = git.push();
+                pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider("FedorovVladimir", "Mitogfvo08011997"));
+                pushCommand.call();
+            } catch (IOException | GitAPIException e) {
+                e.printStackTrace();
+            }
         });
 
         update();
