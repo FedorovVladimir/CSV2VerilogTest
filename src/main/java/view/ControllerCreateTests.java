@@ -4,12 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import model.AllTests;
 import model.AssertModule;
 import model.Module;
@@ -105,7 +111,19 @@ public class ControllerCreateTests implements Initializable {
                 header.add(button);
                 MainPane.getChildren().add(button);
             }
+
+            Button delete = new Button("remove test");
+            int finalI = i;
+            delete.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> rows.remove(finalI));
+            delete.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update(module));
+
+            delete.setTranslateX(x);
+            delete.setTranslateY(y);
+            delete.setMinWidth(40);
+            header.add(delete);
+            MainPane.getChildren().add(delete);
         }
+
 
         Code.setText("");
         AllTests allTests = new AllTests();
