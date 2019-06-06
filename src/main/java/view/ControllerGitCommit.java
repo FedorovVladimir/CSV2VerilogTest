@@ -47,6 +47,10 @@ public class ControllerGitCommit implements Initializable {
         });
     }
 
+    Button getButtonCommit() {
+        return ButtonCommit;
+    }
+
     public void setModule(Module module) {
         this.module = module;
     }

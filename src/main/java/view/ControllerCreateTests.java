@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -21,6 +18,9 @@ import model.AssertModule;
 import model.Module;
 import model.TestModule;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +37,9 @@ public class ControllerCreateTests implements Initializable {
     @FXML
     private Button ButtonAddTest;
 
+    @FXML
+    private Button ButtonSave;
+
     private List<List<Button>> table = new LinkedList<>();
 
     private List<List<String>> rows = new LinkedList<>();
@@ -47,6 +50,30 @@ public class ControllerCreateTests implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ButtonAddTest.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> addRow());
         ButtonAddTest.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update(module));
+
+        ButtonSave.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            File dir = new File("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName() + "\\tests");
+            if (dir.mkdir()) {
+                System.out.println("Создана директория " + dir.getName());
+            }
+            File codeModule = new File("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName() + "\\tests\\" + module.getName() + ".sv");
+            try {
+                FileWriter fileWriter = new FileWriter(codeModule, false);
+                fileWriter.write(Code.getText());
+                fileWriter.flush();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Save");
+                alert.setHeaderText("Save");
+                alert.setContentText("Success!");
+                alert.showAndWait();
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Save");
+                alert.setHeaderText("Save");
+                alert.setContentText("Fail");
+                alert.showAndWait();
+            }
+        });
     }
 
     void update(Module module) {

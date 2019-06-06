@@ -4,9 +4,10 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerCreateTests">
+<AnchorPane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ControllerCreateTests">
    <children>
       <TextArea fx:id="Code" layoutX="746.0" layoutY="14.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="ButtonAddTest" layoutX="31.0" layoutY="663.0" mnemonicParsing="false" text="add test" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+      <Button fx:id="ButtonSave" layoutX="232.0" layoutY="640.0" mnemonicParsing="false" text="save" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" />
    </children>
 </AnchorPane>

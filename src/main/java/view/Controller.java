@@ -186,6 +186,7 @@ public class Controller implements Initializable {
             stage.show();
 
             controllerGitCommit.setModule(update());
+            controllerGitCommit.getButtonCommit().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent2 -> stage.close());
         });
 
         ButtonPush.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
@@ -211,15 +212,26 @@ public class Controller implements Initializable {
 
         ButtonSave.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             File dir = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\src");
-            dir.mkdir();
+            if (dir.mkdir()) {
+                System.out.println("Создана директория " + dir.getName());
+            }
             Module module = update();
             File codeModule = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\src\\" + module.getName() + ".sv");
             try {
                 FileWriter fileWriter = new FileWriter(codeModule, false);
                 fileWriter.write(module.getText());
                 fileWriter.flush();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Save");
+                alert.setHeaderText("Save");
+                alert.setContentText("Success!");
+                alert.showAndWait();
             } catch (IOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Save");
+                alert.setHeaderText("Save");
+                alert.setContentText("Fail");
+                alert.showAndWait();
             }
         });
 
