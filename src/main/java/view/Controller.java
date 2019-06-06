@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -190,8 +191,17 @@ public class Controller implements Initializable {
                 PushCommand pushCommand = git.push();
                 pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider("FedorovVladimir", "Mitogfvo08011997"));
                 pushCommand.call();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Git push");
+                alert.setHeaderText("Git push");
+                alert.setContentText("Success!");
+                alert.showAndWait();
             } catch (IOException | GitAPIException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Git push");
+                alert.setHeaderText("Git push");
+                alert.setContentText("Fail");
+                alert.showAndWait();
             }
         });
 
