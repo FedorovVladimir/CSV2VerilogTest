@@ -216,11 +216,12 @@ public class Controller implements Initializable {
             if (dir.mkdir()) {
                 System.out.println("Создана директория " + dir.getName());
             }
+            String text = Code.getText();
             Module module = update();
             File codeModule = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\src\\" + module.getName() + ".sv");
             try {
                 FileWriter fileWriter = new FileWriter(codeModule, false);
-                fileWriter.write(module.getText());
+                fileWriter.write(text);
                 fileWriter.flush();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Save");

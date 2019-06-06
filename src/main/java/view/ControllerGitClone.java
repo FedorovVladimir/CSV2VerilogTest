@@ -39,6 +39,7 @@ public class ControllerGitClone implements Initializable {
                  alert.setTitle("Git clone");
                  alert.setHeaderText("Git clone");
                  alert.setContentText("Success!");
+                 alert.showAndWait();
             } catch (GitAPIException e) {
                  Alert alert = new Alert(Alert.AlertType.ERROR);
                  alert.setTitle("Git clone");
