@@ -14,10 +14,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Module;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -58,10 +62,10 @@ public class Controller implements Initializable {
     private Button ButtonCreateTests;
 
     @FXML
-    private Menu ButtonCommit;
+    private Button ButtonPush;
 
     @FXML
-    private Menu ButtonPush;
+    private Button ButtonCommit;
 
     private AnchorPane testsWindow;
     private ControllerCreateTests controllerCreateTests;
@@ -136,6 +140,12 @@ public class Controller implements Initializable {
         });
         ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update());
 
+        ButtonCommit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Module module = update();
+            File dir = new File("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName());
+            dir.mkdir();
+        });
+
         update();
     }
 
@@ -169,10 +179,11 @@ public class Controller implements Initializable {
         LabelNameModule.setLayoutY(RectangleModule.getLayoutY() - 20);
     }
 
-    private void update() {
+    private Module update() {
         LabelNameModule.setText(nameModule);
+        Module module = null;
         if (!nameModule.equals("")) {
-            Module module = new Module(nameModule);
+            module = new Module(nameModule);
             for (ViewLine inputsLine : inputsLines) {
                 module.addInput(inputsLine.getLabel().getText());
             }
@@ -186,6 +197,7 @@ public class Controller implements Initializable {
         } else {
             Code.setText("Enter the name of the module.");
         }
+        return module;
     }
 
     private void SettingsNamesEvent(ViewLine viewLine) {
