@@ -8,11 +8,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static AnchorPane root;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Test Driven Hardware Development");
         primaryStage.setScene(new Scene(root, 960, 720));
         primaryStage.show();

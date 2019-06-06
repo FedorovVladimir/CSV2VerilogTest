@@ -1,18 +1,12 @@
 package view;
 
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 class ViewLine{
 
@@ -44,11 +38,11 @@ class ViewLine{
         return textField;
     }
 
-    public Stage getNewWindow() {
+    Stage getNewWindow() {
         return newWindow;
     }
 
-    public void setNewWindow(Stage newWindow) {
+    void setNewWindow(Stage newWindow) {
         this.newWindow = newWindow;
     }
 

@@ -38,4 +38,16 @@ public class Module implements TextMaker {
     public void addOutput(String name) {
         outputs.add(name);
     }
+
+    public List<String> getInputs() {
+        return inputs;
+    }
+
+    public List<String> getOutputs() {
+        return outputs;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

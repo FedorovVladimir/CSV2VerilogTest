@@ -22,15 +22,28 @@ public class TestModule implements TextMaker {
         outputsValues.add(String.valueOf(value));
     }
 
+    public void addOutput(String name, String value) {
+        outputs.add(name);
+        outputsValues.add(value);
+    }
+
     public void addInput(String name, int value) {
         inputs.add(name);
         inputsValues.add(String.valueOf(value));
+    }
+
+    public void addInput(String name, String value) {
+        inputs.add(name);
+        inputsValues.add(value);
     }
 
     @Override
     public String getText() {
         if (number == 0) {
             return "Error " + name;
+        }
+        if (outputs.size() == 0) {
+            return "The module has no outputs.";
         }
 
         StringBuilder str = new StringBuilder();

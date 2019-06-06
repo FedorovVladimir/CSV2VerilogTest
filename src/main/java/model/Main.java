@@ -1,7 +1,4 @@
-import model.AllTests;
-import model.AssertModule;
-import model.Module;
-import model.TestModule;
+package model;
 
 public class Main {
     public static void main(String[] args) {

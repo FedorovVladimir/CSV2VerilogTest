@@ -58,6 +58,7 @@ public class Controller implements Initializable {
     private Button ButtonCreateTests;
 
     private AnchorPane testsWindow;
+    private ControllerCreateTests controllerCreateTests;
 
     private String nameModule = "";
     private List<ViewLine> inputsLines = new LinkedList<>();
@@ -114,17 +115,20 @@ public class Controller implements Initializable {
             update();
         });
 
-        ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+        ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
             Stage stage = new Stage();
             try {
-                testsWindow = FXMLLoader.load(getClass().getResource("/create_tests.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/create_tests.fxml"));
+                testsWindow = loader.load();
+                controllerCreateTests = loader.getController();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             stage.setTitle("Create tests");
-                stage.setScene(new Scene(testsWindow, 960, 720));
+            stage.setScene(new Scene(testsWindow, 960, 720));
             stage.show();
         });
+        ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update());
 
         update();
     }
@@ -170,6 +174,9 @@ public class Controller implements Initializable {
                 module.addOutput(outputsLine.getLabel().getText());
             }
             Code.setText(module.getText());
+            if (controllerCreateTests != null) {
+                controllerCreateTests.update(module);
+            }
         } else {
             Code.setText("Enter the name of the module.");
         }
