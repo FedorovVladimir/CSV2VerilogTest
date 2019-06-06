@@ -2,6 +2,7 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -32,8 +33,16 @@ public class ControllerGitCommit implements Initializable {
                 Git git = Git.open(gitFile);
                 git.add().addFilepattern(".").call();
                 git.commit().setMessage(TextAreaCommit.getText()).call();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Git commit");
+                alert.setHeaderText("Git commit");
+                alert.setContentText("Success!");
+                alert.showAndWait();
             } catch (IOException | GitAPIException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Git commit");
+                alert.setHeaderText("Git commit");
+                alert.setContentText("Fail");
             }
         });
     }

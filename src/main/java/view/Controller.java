@@ -24,6 +24,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -74,6 +75,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button ButtonClone;
+
+    @FXML
+    private Button ButtonSave;
 
     private AnchorPane testsWindow;
     private AnchorPane gitCloneWindow;
@@ -202,6 +206,20 @@ public class Controller implements Initializable {
                 alert.setHeaderText("Git push");
                 alert.setContentText("Fail");
                 alert.showAndWait();
+            }
+        });
+
+        ButtonSave.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            File dir = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\src");
+            dir.mkdir();
+            Module module = update();
+            File codeModule = new File("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText() + "\\src\\" + module.getName() + ".sv");
+            try {
+                FileWriter fileWriter = new FileWriter(codeModule, false);
+                fileWriter.write(module.getText());
+                fileWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
