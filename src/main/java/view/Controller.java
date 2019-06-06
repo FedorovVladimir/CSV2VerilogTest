@@ -67,8 +67,15 @@ public class Controller implements Initializable {
     @FXML
     private Button ButtonCommit;
 
+    @FXML
+    private Button ButtonClone;
+
     private AnchorPane testsWindow;
+    private AnchorPane gitCloneWindow;
+    private AnchorPane gitCommitWindow;
     private ControllerCreateTests controllerCreateTests;
+    private ControllerGitClone controllerGitClone;
+    private ControllerGitCommit controllerGitCommit;
 
     private String nameModule = "";
     private List<ViewLine> inputsLines = new LinkedList<>();
@@ -140,10 +147,36 @@ public class Controller implements Initializable {
         });
         ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update());
 
+        ButtonClone.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Stage stage = new Stage();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/git_clone.fxml"));
+                gitCloneWindow = loader.load();
+                controllerGitClone = loader.getController();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setTitle("Git clone");
+            stage.setScene(new Scene(gitCloneWindow, 500, 150));
+            stage.show();
+
+            controllerGitClone.setModule(update());
+        });
+
         ButtonCommit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            Module module = update();
-            File dir = new File("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName());
-            dir.mkdir();
+            Stage stage = new Stage();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/git_commit.fxml"));
+                gitCommitWindow = loader.load();
+                controllerGitCommit = loader.getController();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage.setTitle("Git clone");
+            stage.setScene(new Scene(gitCommitWindow, 300, 300));
+            stage.show();
+
+            controllerGitCommit.setModule(update());
         });
 
         update();
