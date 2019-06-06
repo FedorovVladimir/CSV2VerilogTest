@@ -57,6 +57,12 @@ public class Controller implements Initializable {
     @FXML
     private Button ButtonCreateTests;
 
+    @FXML
+    private Menu ButtonCommit;
+
+    @FXML
+    private Menu ButtonPush;
+
     private AnchorPane testsWindow;
     private ControllerCreateTests controllerCreateTests;
 

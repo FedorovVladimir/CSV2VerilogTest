@@ -89,7 +89,7 @@ public class ControllerCreateTests implements Initializable {
 
         for (int i = 0; i < rows.size(); i++) {
             x = 20;
-            y += 30;
+            y += 40;
             for (int j = 0; j < rows.get(i).size(); j++) {
                 Button button = new Button(rows.get(i).get(j));
 
