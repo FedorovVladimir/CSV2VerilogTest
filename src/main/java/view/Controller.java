@@ -170,6 +170,7 @@ public class Controller implements Initializable {
             stage.show();
 
             controllerGitClone.setModule(update());
+            controllerGitClone.getButtonClone().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent2 -> stage.close());
         });
 
         ButtonCommit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
