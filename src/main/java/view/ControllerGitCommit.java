@@ -8,8 +8,6 @@ import javafx.scene.input.MouseEvent;
 import model.Module;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
-import org.eclipse.jgit.lib.Repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +30,6 @@ public class ControllerGitCommit implements Initializable {
             try {
                 File gitFile = new File("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName() + "\\.git");
                 Git git = Git.open(gitFile);
-                Repository repository = git.getRepository();
                 git.add().addFilepattern(".").call();
                 git.commit().setMessage(TextAreaCommit.getText()).call();
             } catch (IOException | GitAPIException e) {

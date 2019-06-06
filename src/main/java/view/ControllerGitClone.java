@@ -43,6 +43,8 @@ public class ControllerGitClone implements Initializable {
 
     public void setModule(Module module) {
         this.module = module;
-        TextFieldDirectory.setText("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName());
+        if (module != null) {
+            TextFieldDirectory.setText("C:\\Users\\vladimir\\TDHDProjects\\" + module.getName());
+        }
     }
 }

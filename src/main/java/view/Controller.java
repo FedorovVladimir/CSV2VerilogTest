@@ -172,7 +172,7 @@ public class Controller implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            stage.setTitle("Git clone");
+            stage.setTitle("Git commit");
             stage.setScene(new Scene(gitCommitWindow, 300, 300));
             stage.show();
 
