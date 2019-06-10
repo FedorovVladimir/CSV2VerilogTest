@@ -60,8 +60,6 @@ public class Controller implements Initializable {
     @FXML
     private TextArea Code;
 
-    @FXML
-    private Button ButtonReset;
 
     @FXML
     private Button ButtonCreateTests;
@@ -126,25 +124,6 @@ public class Controller implements Initializable {
             }
         });
         ButtonAddOutput.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
-            updateLinesPositions();
-            update();
-        });
-
-        ButtonReset.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
-            nameModule = "";
-            TextFieldNameModule.setText("");
-            for (ViewLine inputsLine : inputsLines) {
-                ModulePane.getChildren().remove(inputsLine.getLine());
-                ModulePane.getChildren().remove(inputsLine.getLabel());
-            }
-            for (ViewLine outputsLine : outputsLines) {
-                ModulePane.getChildren().remove(outputsLine.getLine());
-                ModulePane.getChildren().remove(outputsLine.getLabel());
-            }
-            inputsLines.clear();
-            outputsLines.clear();
-        });
-        ButtonReset.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> {
             updateLinesPositions();
             update();
         });

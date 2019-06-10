@@ -44,11 +44,11 @@ public class Main {
             TestModule m = new TestModule(nameModule, i+1);
 
             for (int j = 0; j < addrInputsNames.length; j++) {
-                m.addInput(addrInputsNames[j], addrTests[i][j]);
+                m.addInput(addrInputsNames[j], String.valueOf(addrTests[i][j]));
             }
 
             for (int j = 0; j < addrOutputsNames.length; j++) {
-                m.addOutput(addrOutputsNames[j], addrTests[i][j + addrInputsNames.length]);
+                m.addOutput(addrOutputsNames[j], String.valueOf(addrTests[i][j + addrInputsNames.length]));
             }
 
             // получаем текст каждого теста

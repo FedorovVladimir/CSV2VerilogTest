@@ -17,19 +17,9 @@ public class TestModule implements TextMaker {
         this.number = number;
     }
 
-    public void addOutput(String name, int value) {
-        outputs.add(name);
-        outputsValues.add(String.valueOf(value));
-    }
-
     public void addOutput(String name, String value) {
         outputs.add(name);
         outputsValues.add(value);
-    }
-
-    public void addInput(String name, int value) {
-        inputs.add(name);
-        inputsValues.add(String.valueOf(value));
     }
 
     public void addInput(String name, String value) {
