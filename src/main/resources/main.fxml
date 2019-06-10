@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
    <children>
-      <Pane fx:id="ModulePane" layoutX="993.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #e3e3e3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="ModulePane" layoutX="993.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Rectangle fx:id="RectangleModule" fill="#b3b3b3" height="200.0" layoutX="193.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" width="114.0" />
             <Label fx:id="LabelNameModule" layoutX="193.0" layoutY="212.0" text="fulladder">
@@ -53,15 +53,22 @@
          </font>
       </TextField>
       <Button fx:id="ButtonAddOutput" layoutX="331.0" layoutY="171.0" mnemonicParsing="false" text="add output" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="170.0" />
-      <TextArea fx:id="Code" layoutX="13.0" layoutY="216.0" prefHeight="474.0" prefWidth="420.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0">
+      <TextArea fx:id="Code" layoutX="13.0" layoutY="216.0" prefHeight="221.0" prefWidth="420.0" AnchorPane.bottomAnchor="279.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0">
          <font>
             <Font size="14.0" />
          </font></TextArea>
-      <Button fx:id="ButtonReset" layoutX="14.0" layoutY="673.0" mnemonicParsing="false" text="reset" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-      <Button fx:id="ButtonCreateTests" layoutX="65.0" layoutY="675.0" mnemonicParsing="false" text="create tests" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="80.0" />
+      <Button fx:id="ButtonReset" layoutX="14.0" layoutY="673.0" mnemonicParsing="false" text="reset" AnchorPane.rightAnchor="510.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="ButtonCreateTests" layoutX="65.0" layoutY="675.0" mnemonicParsing="false" text="create tests" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="ButtonPush" layoutX="353.0" layoutY="48.0" mnemonicParsing="false" text="push" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="ButtonCommit" layoutX="353.0" layoutY="40.0" mnemonicParsing="false" text="commit" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="ButtonClone" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" text="clone" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="ButtonSave" layoutX="318.0" layoutY="48.0" mnemonicParsing="false" text="save" AnchorPane.rightAnchor="215.0" AnchorPane.topAnchor="10.0" />
+      <TextArea fx:id="Console" layoutX="20.0" layoutY="455.0" prefHeight="208.0" prefWidth="420.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="ButtonCompile" layoutX="329.0" layoutY="28.0" mnemonicParsing="false" text="compile" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="ButtonRun" layoutX="405.0" layoutY="32.0" mnemonicParsing="false" text="run" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

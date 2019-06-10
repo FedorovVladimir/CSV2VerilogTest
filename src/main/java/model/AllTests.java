@@ -20,7 +20,7 @@ public class AllTests implements TextMaker {
         StringBuilder str = new StringBuilder();
         str.append("module allTests();\n");
         for (int i = 0; i < testModules.size(); i++) {
-            str.append("\treg res_").append(i+1).append(";\n");
+            str.append("\twire res_").append(i+1).append(";\n");
             str.append("\t").append(testModules.get(i).getName()).append("_test_").append(testModules.get(i).getNumber());
             str.append(" ").append(testModules.get(i).getName().charAt(0)).append(testModules.get(i).getNumber());
             str.append("(res_").append(i+1).append(");\n");

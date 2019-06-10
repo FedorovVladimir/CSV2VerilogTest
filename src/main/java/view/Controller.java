@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.IcarusVerilog;
 import model.Module;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PushCommand;
@@ -27,10 +28,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
@@ -78,6 +77,15 @@ public class Controller implements Initializable {
 
     @FXML
     private Button ButtonSave;
+
+    @FXML
+    private TextArea Console;
+
+    @FXML
+    private Button ButtonCompile;
+
+    @FXML
+    private Button ButtonRun;
 
     private AnchorPane testsWindow;
     private AnchorPane gitCloneWindow;
@@ -151,7 +159,7 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
             stage.setTitle("Create tests");
-            stage.setScene(new Scene(testsWindow, 960, 720));
+            stage.setScene(new Scene(testsWindow, 720, 720));
             stage.show();
         });
         ButtonCreateTests.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseEvent -> update());
@@ -234,6 +242,34 @@ public class Controller implements Initializable {
                 alert.setHeaderText("Save");
                 alert.setContentText("Fail");
                 alert.showAndWait();
+            }
+        });
+
+        ButtonCompile.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Console.setText("Compile...");
+            IcarusVerilog icarusVerilog = new IcarusVerilog();
+            icarusVerilog.setProjectPath("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText());
+            icarusVerilog.setListFiles(new ArrayList<String>() {{
+                add("src\\" + TextFieldNameModule.getText() + ".sv");
+                add("tests\\" + TextFieldNameModule.getText() + ".sv");
+            }});
+            String text = icarusVerilog.compile();
+            if (!text.equals("")) {
+                Console.setText(text);
+            } else {
+                Console.setText("Compile success!");
+            }
+        });
+
+        ButtonRun.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Console.setText("Run...");
+            IcarusVerilog icarusVerilog = new IcarusVerilog();
+            icarusVerilog.setProjectPath("C:\\Users\\vladimir\\TDHDProjects\\" + TextFieldNameModule.getText());
+            String text = icarusVerilog.run();
+            if (!text.equals("")) {
+                Console.setText(text);
+            } else {
+                Console.setText("Text is empty.");
             }
         });
 

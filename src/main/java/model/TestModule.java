@@ -50,7 +50,11 @@ public class TestModule implements TextMaker {
         str.append("module ").append(name).append("_test_").append(number).append("(output reg out);\n");
         if (inputs.size() + outputs.size() > 0) {
             str.append("\treg ");
-            listAllRegs(str);
+            str.append(String.join(", ", inputs));
+            if (inputs.size() > 0) {
+                str.append(";\n\twire ");
+            }
+            str.append(String.join(", ", outputs));
             str.append(";\n");
         }
 
@@ -63,7 +67,7 @@ public class TestModule implements TextMaker {
         for (int i = 0; i < outputs.size(); i++) {
             str.append("\treg ");
             str.append("test_").append(outputs.get(i));
-            str.append(", res_").append(outputs.get(i));
+            str.append(";\n\twire res_").append(outputs.get(i));
             str.append(";\n");
             str.append("\tassertEquals t").append(i + 1).append("(");
             str.append(outputs.get(i)).append(", test_").append(outputs.get(i)).append(", res_").append(outputs.get(i));
