@@ -12,7 +12,6 @@ import new_design_model.Project;
 import new_design_model.Url;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Optional;
 
 public class Controller {
@@ -70,19 +69,21 @@ public class Controller {
         Alert alert;
         String title = "Git clone";
         String header = "Git clone";
-        project = new Project(new Url(gitUrl[0]));
-        if (project.isOpen()) {
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Success!");
-            updateTitle();
-            updateListFiles();
-        } else {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Fail");
+        if (!gitUrl[0].equals("")) {
+            project = new Project(new Url(gitUrl[0]));
+            if (project.isOpen()) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Success!");
+                updateTitle();
+                updateListFiles();
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Fail");
+            }
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.showAndWait();
         }
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
     }
 
     private void updateTitle() {
@@ -94,15 +95,15 @@ public class Controller {
         File[] filesTest = project.getListTests();
 
         Label srcLabel = new Label("src");
-        srcLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/src_icon_5.png"))));
+        srcLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/src_icon.png"))));
         TreeItem<Label> srcItem = loadFiles(filesSrc, srcLabel);
 
         Label testLabel = new Label("test");
-        testLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/test_icon_5.png"))));
+        testLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/test_icon.png"))));
         TreeItem<Label> testItem = loadFiles(filesTest, testLabel);
 
         Label projectLabel = new Label(project.getName());
-        projectLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/folder_icon.png"))));
+        projectLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/folder_icon.png"))));
         TreeItem<Label> rootItem = new TreeItem<>(projectLabel);
         rootItem.getChildren().add(srcItem);
         rootItem.getChildren().add(testItem);
@@ -114,7 +115,7 @@ public class Controller {
         TreeItem<Label> item = new TreeItem<>(srcLabel);
         for (File file : filesSrc) {
             Label label = new Label(file.getName());
-            label.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/text_icon.png"))));
+            label.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/text_icon.png"))));
             item.getChildren().add(new TreeItem<>(label));
         }
         return item;

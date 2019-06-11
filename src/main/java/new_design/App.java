@@ -14,7 +14,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         App.primaryStage = primaryStage;
-        VBox root = FXMLLoader.load(getClass().getResource("/Wrapper.fxml"));
+        VBox root = FXMLLoader.load(getClass().getResource("/fxml/Wrapper.fxml"));
         primaryStage.setTitle("Test Driven Hardware Development");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
