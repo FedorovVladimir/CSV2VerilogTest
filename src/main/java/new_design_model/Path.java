@@ -25,4 +25,11 @@ public class Path {
     public static String getProjectsPath() {
         return projectsPath;
     }
+
+    @Override
+    public String toString() {
+        return "Path{" +
+                "path='" + path + '\'' +
+                '}';
+    }
 }

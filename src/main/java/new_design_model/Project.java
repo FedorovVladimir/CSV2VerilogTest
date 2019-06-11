@@ -4,6 +4,8 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Project {
 
@@ -69,5 +71,29 @@ public class Project {
         }
         // в противном случае возвращаем заглушку, то есть расширение не найдено
         else return "";
+    }
+
+    public void newModule(String name) {
+        try {
+            File file = new File(getPath() + "\\src\\" + name + ".v");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("hello!");
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean removeModule(String name) {
+        File file = new File(getPath() + "\\src\\" + name);
+        return file.delete();
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "path=" + path +
+                ", isOpen=" + isOpen +
+                '}';
     }
 }

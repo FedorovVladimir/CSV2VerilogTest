@@ -2,6 +2,7 @@ package new_design;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,15 +13,34 @@ import new_design_model.Project;
 import new_design_model.Url;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     @FXML
     private TreeView<Label> TreeView;
 
+    @FXML
+    private TextArea TextCode;
+
+    @FXML
+    private TextArea TextTest;
+
+    @FXML
+    private TextArea TextConsole;
+
     private Project project;
     private Stage root = App.getPrimaryStage();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        project = new Project("untitled");
+        System.out.println(project);
+        updateTitle();
+        updateListFiles();
+    }
 
     @FXML
     void newProject(ActionEvent event) {
@@ -109,6 +129,9 @@ public class Controller {
         rootItem.getChildren().add(testItem);
 
         TreeView.setRoot(rootItem);
+        rootItem.setExpanded(true);
+        srcItem.setExpanded(true);
+        testItem.setExpanded(true);
     }
 
     private TreeItem<Label> loadFiles(File[] filesSrc, Label srcLabel) {
@@ -130,17 +153,26 @@ public class Controller {
 
     @FXML
     void newModule(ActionEvent event) {
-//        project.newModule();
-    }
+        final String[] projectName = {""};
 
-    @FXML
-    void editModule(ActionEvent event) {
-//        project.editModule();
+        TextInputDialog dialog = new TextInputDialog("untitled");
+        dialog.setTitle("New module");
+        dialog.setHeaderText("Enter module name:");
+        dialog.setContentText("Name:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> projectName[0] = name);
+
+        if (!projectName[0].equals("")) {
+            project.newModule(projectName[0]);
+            updateListFiles();
+        }
     }
 
     @FXML
     void removeModule(ActionEvent event) {
-//        project.removeModule();
+        String name = TreeView.getSelectionModel().getSelectedItems().get(0).getValue().getText();
+        project.removeModule(name);
+        updateListFiles();
     }
 
 

@@ -13,13 +13,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Path.setProjectsPath("C:\\Users\\vladimir\\TDHDProjects");
         App.primaryStage = primaryStage;
-        VBox root = FXMLLoader.load(getClass().getResource("/fxml/Wrapper.fxml"));
         primaryStage.setTitle("Test Driven Hardware Development");
+        VBox root = FXMLLoader.load(getClass().getResource("/fxml/Wrapper.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
 
-        Path.setProjectsPath("C:\\Users\\vladimir\\TDHDProjects");
     }
 
     static Stage getPrimaryStage() {
