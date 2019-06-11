@@ -99,13 +99,13 @@ public class Controller {
 
         Label testLabel = new Label("test");
         testLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/test_icon_5.png"))));
-//        TreeItem<Label> testItem = loadFiles(filesTest, testLabel);
+        TreeItem<Label> testItem = loadFiles(filesTest, testLabel);
 
         Label projectLabel = new Label(project.getName());
         projectLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/folder_icon.png"))));
         TreeItem<Label> rootItem = new TreeItem<>(projectLabel);
         rootItem.getChildren().add(srcItem);
-//        rootItem.getChildren().add(testItem);
+        rootItem.getChildren().add(testItem);
 
         TreeView.setRoot(rootItem);
     }
