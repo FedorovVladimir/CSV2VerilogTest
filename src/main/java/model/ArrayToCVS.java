@@ -1,6 +1,6 @@
 package model;
 
-public class ArrayToCVS implements TextMaker {
+public class ArrayToCVS {
 
     private String[] marks;
     private String[] headers;
@@ -18,7 +18,6 @@ public class ArrayToCVS implements TextMaker {
         this.marks = marks;
     }
 
-    @Override
     public String getText() {
         StringBuilder str = new StringBuilder();
         str.append(String.join(", ", marks)).append("\n");

@@ -1,6 +1,6 @@
 package model;
 
-import new_design.Module;
+import new_design_model.Module;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,9 +57,6 @@ public class Main {
             System.out.println(m.getText());
             allTests.add(m);
         }
-
-        // получаем текст assertEquals
-        System.out.println(new AssertModule().getText());
 
         // получаем текст alltests
         System.out.println(allTests.getText());

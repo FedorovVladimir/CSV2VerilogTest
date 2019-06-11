@@ -1,6 +1,5 @@
 package new_design_model;
 
-import new_design.Module;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -8,11 +7,11 @@ import java.io.*;
 
 public class Project {
 
-    private Path path;
+    private PathFile path;
     private boolean isOpen;
 
     public Project(String name) {
-        this.path = new Path(name);
+        this.path = new PathFile(PathProject.getProjectsPath() + "\\" + name);
         File dir = new File(path.getPath());
         File dirSrc = new File(path.getPath() + "\\src");
         File dirTest = new File(path.getPath() + "\\test");
@@ -22,14 +21,14 @@ public class Project {
         isOpen = true;
     }
 
-    public Project(Path path) {
-        this.path = new Path(path.getName());
+    public Project(PathFile path) {
+        this.path = new PathFile(path.getPath());
         isOpen = true;
     }
 
     public Project(Url url) {
         String[] subStr = url.getUrl().split("/");
-        this.path = new Path(subStr[subStr.length - 1]);
+        this.path = new PathFile(PathProject.getProjectsPath() + "\\" + subStr[subStr.length - 1]);
         try {
             Git.cloneRepository()
                     .setURI(url.getUrl())
@@ -39,10 +38,6 @@ public class Project {
         } catch (GitAPIException e) {
             this.isOpen = false;
         }
-    }
-
-    public String getName() {
-        return path.getName();
     }
 
     public String getPath() {
@@ -119,14 +114,6 @@ public class Project {
         return "Error read file " + path;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "path=" + path +
-                ", isOpen=" + isOpen +
-                '}';
-    }
-
     public void saveModule(String text, String path) {
         try {
             File file = new File(getPath() + "\\src\\" + path);
@@ -137,5 +124,23 @@ public class Project {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String run() {
+        IcarusVerilog icarusVerilog = new IcarusVerilog(getName());
+        File[] f1 = getListFiles();
+        File[] f2 = getListTests();
+        icarusVerilog.setProjectPath(PathProject.getProjectsPath());
+        icarusVerilog.setListFiles(f1, f2);
+        String compileText = icarusVerilog.compile();
+        if (!compileText.equals("")) {
+            return compileText;
+        }
+        return icarusVerilog.run();
+    }
+
+    public String getName() {
+        String[] strings = path.getPath().replace("\\", "&").split("&");
+        return strings[strings.length - 1];
     }
 }

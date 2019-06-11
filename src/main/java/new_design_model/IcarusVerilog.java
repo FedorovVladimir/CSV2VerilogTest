@@ -1,53 +1,46 @@
-package model;
+package new_design_model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class IcarusVerilog {
 
     private String projectPath;
 
-    private List<String> listFiles;
+    private List<String> listFiles = new LinkedList<>();
 
-    public void setListFiles(List<String> listFiles) {
-        this.listFiles = listFiles;
+    private String projectName;
+
+    public IcarusVerilog(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setListFiles(File[] listFiles, File[] listFiles2) {
+        for (File file : listFiles) {
+            this.listFiles.add("src\\" + file.getName());
+        }
+        for (File file : listFiles2) {
+            this.listFiles.add("test\\" + file.getName());
+        }
     }
 
     public void setProjectPath(String projectPath) {
         this.projectPath = projectPath;
     }
 
-    public static void main(String[] args) {
-        IcarusVerilog icarusVerilog = new IcarusVerilog();
-        icarusVerilog.setListFiles(new ArrayList<String>() {{
-            add("code.sv");
-            add("tcode.sv");
-        }});
-        icarusVerilog.setProjectPath("C:\\Users\\vladimir\\TDHDProjects\\TestIcarus");
-
-        String compileStr = icarusVerilog.compile();
-
-        if (!compileStr.equals("")) {
-            System.out.println(compileStr);
-        } else {
-            String runStr = icarusVerilog.run();
-            if (!runStr.equals("")) {
-                System.out.println(runStr);
-            }
-        }
-    }
-
     public String compile() {
         List<String> commandCompile = new ArrayList<>();
         commandCompile.add("iverilog");
         commandCompile.add("-o");
-        commandCompile.add(projectPath + "\\run");
+        commandCompile.add(projectPath + "\\" + projectName + "\\run");
 
         for (String listFile : listFiles) {
-            commandCompile.add(projectPath + "\\" + listFile);
+            commandCompile.add(projectPath + "\\" + projectName + "\\" + listFile);
         }
 
         return exec(commandCompile);
@@ -56,7 +49,7 @@ public class IcarusVerilog {
     public String run() {
         List<String> commandRun = new ArrayList<>();
         commandRun.add("vvp");
-        commandRun.add(projectPath + "\\run");
+        commandRun.add(projectPath + "\\" + projectName + "\\run");
         return exec(commandRun);
     }
 

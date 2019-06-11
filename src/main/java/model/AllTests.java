@@ -3,7 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AllTests implements TextMaker {
+public class AllTests {
 
     private List<TestModule> testModules = new LinkedList<>();
 
@@ -11,7 +11,6 @@ public class AllTests implements TextMaker {
         testModules.add(module);
     }
 
-    @Override
     public String getText() {
         if (testModules.size() < 1) {
             return "";

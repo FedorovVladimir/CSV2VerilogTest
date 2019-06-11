@@ -6,8 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.AllTests;
-import model.AssertModule;
-import new_design.Module;
+import new_design_model.Module;
 import model.TestModule;
 
 import java.io.File;
@@ -163,7 +162,6 @@ public class ControllerCreateTests implements Initializable {
         }
         if (!Code.getText().equals("") && !Code.getText().trim().equals("The module has no outputs.")) {
             Code.setText(Code.getText() + "\n" + allTests.getText());
-            Code.setText(Code.getText() + "\n" + new AssertModule().getText());
         }
     }
 

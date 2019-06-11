@@ -44,15 +44,6 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <top>
-                  <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="380.0" BorderPane.alignment="CENTER">
-                     <items>
-                        <Button mnemonicParsing="false" onAction="#push" text="push" />
-                        <Button mnemonicParsing="false" onAction="#commit" text="commit" />
-                        <Button mnemonicParsing="false" onAction="#run" text="run" />
-                     </items>
-                  </ToolBar>
-               </top>
                <left>
                   <TreeView fx:id="TreeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
@@ -94,6 +85,25 @@
                      </children>
                   </AnchorPane>
                </center>
+               <top>
+                  <AnchorPane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <items>
+                              <Button mnemonicParsing="false" onAction="#push" text="push" />
+                              <Button mnemonicParsing="false" onAction="#commit" text="commit" />
+                              <Button mnemonicParsing="false" onAction="#run" text="run" />
+                           </items>
+                        </ToolBar>
+                        <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <Button mnemonicParsing="false" onAction="#newModule" text="New module" />
+                              <Button mnemonicParsing="false" onAction="#removeModule" text="Remove module" />
+                          </items>
+                        </ToolBar>
+                     </children>
+                  </AnchorPane>
+               </top>
             </BorderPane>
          </children></AnchorPane>
   </children>

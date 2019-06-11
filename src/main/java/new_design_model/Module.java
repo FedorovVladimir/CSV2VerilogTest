@@ -1,11 +1,9 @@
-package new_design;
-
-import model.TextMaker;
+package new_design_model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Module implements TextMaker {
+public class Module {
 
     private String name;
     private List<String> inputs = new LinkedList<>();
@@ -15,7 +13,6 @@ public class Module implements TextMaker {
         this.name = name;
     }
 
-    @Override
     public String getText() {
         StringBuilder str = new StringBuilder();
         str.append("module ").append(name).append("(");

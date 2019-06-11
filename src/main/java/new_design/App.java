@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import new_design_model.Path;
+import new_design_model.PathProject;
 
 public class App extends Application {
 
@@ -13,13 +13,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Path.setProjectsPath("C:\\Users\\vladimir\\TDHDProjects");
+        PathProject.setProjectsPath("C:\\Users\\vladimir\\TDHDProjects");
         App.primaryStage = primaryStage;
         primaryStage.setTitle("Test Driven Hardware Development");
         VBox root = FXMLLoader.load(getClass().getResource("/fxml/Wrapper.fxml"));
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
-
     }
 
     static Stage getPrimaryStage() {

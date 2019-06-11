@@ -7,11 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import new_design_model.Path;
+import new_design_model.PathFile;
+import new_design_model.PathProject;
 import new_design_model.Project;
 import new_design_model.Url;
 
@@ -76,12 +76,12 @@ public class Controller implements Initializable {
     @FXML
     void openProject(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File(Path.getProjectsPath()));
+        directoryChooser.setInitialDirectory(new File(PathProject.getProjectsPath()));
         File selectedDirectory = directoryChooser.showDialog(root);
 
         if (selectedDirectory != null) {
-            String pathStr = selectedDirectory.getName();
-            Path path = new Path(pathStr);
+            String pathStr = selectedDirectory.getPath();
+            PathFile path = new PathFile(pathStr);
             project = new Project(path);
             updateTitle();
             updateListFiles();
@@ -155,7 +155,7 @@ public class Controller implements Initializable {
         testItem.setExpanded(true);
     }
 
-    private TreeItem<Label> loadFiles(File[] filesSrc, Label srcLabel, EventHandler eventHandler) {
+    private TreeItem<Label> loadFiles(File[] filesSrc, Label srcLabel, EventHandler<MouseEvent> eventHandler) {
         TreeItem<Label> item = new TreeItem<>(srcLabel);
         for (File file : filesSrc) {
             Label label = new Label(file.getName());
@@ -218,7 +218,7 @@ public class Controller implements Initializable {
 
     @FXML
     void run(ActionEvent event) {
-//        project.run();
+        TextConsole.setText(project.run());
     }
 
     @FXML

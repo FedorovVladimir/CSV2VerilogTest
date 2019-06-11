@@ -3,7 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TestModule implements TextMaker {
+public class TestModule {
 
     private String name;
     private int number;
@@ -27,7 +27,6 @@ public class TestModule implements TextMaker {
         inputsValues.add(value);
     }
 
-    @Override
     public String getText() {
         if (number == 0) {
             return "Error " + name;
