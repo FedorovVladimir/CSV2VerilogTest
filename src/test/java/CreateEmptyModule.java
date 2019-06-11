@@ -1,4 +1,4 @@
-import model.Module;
+import new_design.Module;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

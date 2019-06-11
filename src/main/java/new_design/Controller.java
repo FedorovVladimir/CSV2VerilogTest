@@ -1,11 +1,14 @@
 package new_design;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import new_design_model.Path;
@@ -31,15 +34,25 @@ public class Controller implements Initializable {
     @FXML
     private TextArea TextConsole;
 
+    @FXML
+    private Label LabelFileCode;
+
+    @FXML
+    private Label LabelTestCode;
+
     private Project project;
     private Stage root = App.getPrimaryStage();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         project = new Project("untitled");
-        System.out.println(project);
         updateTitle();
         updateListFiles();
+
+        LabelFileCode.setText("");
+        LabelTestCode.setText("");
+
+        TextCode.textProperty().addListener((obs,old,niu)-> project.saveModule(TextCode.getText(), LabelFileCode.getText()));
     }
 
     @FXML
@@ -116,11 +129,19 @@ public class Controller implements Initializable {
 
         Label srcLabel = new Label("src");
         srcLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/src_icon.png"))));
-        TreeItem<Label> srcItem = loadFiles(filesSrc, srcLabel);
+        TreeItem<Label> srcItem = loadFiles(filesSrc, srcLabel, (EventHandler<MouseEvent>) e -> {
+            String nameFile = TreeView.getSelectionModel().getSelectedItems().get(0).getValue().getText();
+            LabelFileCode.setText(nameFile);
+            TextCode.setText(project.getModuleText(nameFile));
+        });
 
         Label testLabel = new Label("test");
         testLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/test_icon.png"))));
-        TreeItem<Label> testItem = loadFiles(filesTest, testLabel);
+        TreeItem<Label> testItem = loadFiles(filesTest, testLabel, (EventHandler<MouseEvent>) e -> {
+            String nameFile = TreeView.getSelectionModel().getSelectedItems().get(0).getValue().getText();
+            LabelTestCode.setText(nameFile);
+            TextTest.setText(project.getTestText(TreeView.getSelectionModel().getSelectedItems().get(0).getValue().getText()));
+        });
 
         Label projectLabel = new Label(project.getName());
         projectLabel.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/folder_icon.png"))));
@@ -134,11 +155,12 @@ public class Controller implements Initializable {
         testItem.setExpanded(true);
     }
 
-    private TreeItem<Label> loadFiles(File[] filesSrc, Label srcLabel) {
+    private TreeItem<Label> loadFiles(File[] filesSrc, Label srcLabel, EventHandler eventHandler) {
         TreeItem<Label> item = new TreeItem<>(srcLabel);
         for (File file : filesSrc) {
             Label label = new Label(file.getName());
             label.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/img/text_icon.png"))));
+            label.setOnMouseClicked(eventHandler);
             item.getChildren().add(new TreeItem<>(label));
         }
         return item;

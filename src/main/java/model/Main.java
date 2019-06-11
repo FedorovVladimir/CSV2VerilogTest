@@ -1,5 +1,7 @@
 package model;
 
+import new_design.Module;
+
 public class Main {
     public static void main(String[] args) {
 

@@ -1,11 +1,10 @@
 package new_design_model;
 
+import new_design.Module;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Project {
 
@@ -77,16 +76,47 @@ public class Project {
         try {
             File file = new File(getPath() + "\\src\\" + name + ".v");
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write("hello!");
+            Module module = new Module(name);
+            fileWriter.write(module.getText());
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Boolean removeModule(String name) {
+    public void removeModule(String name) {
+        System.out.println("remove " + name);
         File file = new File(getPath() + "\\src\\" + name);
-        return file.delete();
+        if (file.delete()) {
+            System.out.println("File " + name + " remove");
+        } else {
+            System.out.println("Error remove");
+        }
+    }
+
+    public String getModuleText(String name) {
+        return getText(getPath() + "\\src\\" + name);
+    }
+
+    public String getTestText(String name) {
+        return getText(getPath() + "\\test\\" + name);
+    }
+
+    private String getText(String path) {
+        try {
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+            char [] a = new char[1000];
+            fileReader.read(a);
+            fileReader.close();
+            return String.valueOf(a);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Error read file " + path;
     }
 
     @Override
@@ -95,5 +125,17 @@ public class Project {
                 "path=" + path +
                 ", isOpen=" + isOpen +
                 '}';
+    }
+
+    public void saveModule(String text, String path) {
+        try {
+            File file = new File(getPath() + "\\src\\" + path);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(text);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,12 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.IcarusVerilog;
-import model.Module;
+import new_design.Module;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.awt.*;

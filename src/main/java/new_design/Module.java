@@ -1,4 +1,6 @@
-package model;
+package new_design;
+
+import model.TextMaker;
 
 import java.util.LinkedList;
 import java.util.List;

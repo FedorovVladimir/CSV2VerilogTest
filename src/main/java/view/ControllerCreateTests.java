@@ -1,21 +1,13 @@
 package view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import model.AllTests;
 import model.AssertModule;
-import model.Module;
+import new_design.Module;
 import model.TestModule;
 
 import java.io.File;
