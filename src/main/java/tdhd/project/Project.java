@@ -2,6 +2,7 @@ package tdhd.project;
 
 import tdhd.simulation_environment.IcarusVerilog;
 
+import java.io.File;
 import java.util.Map;
 
 public class Project {
@@ -16,23 +17,23 @@ public class Project {
     private String absoluteFolderPath;
 
     public Project(String url, String absoluteFolderPath) {
-        gitVersionControlSystem.gitClone(url, absoluteFolderPath);
-        this.nameProject = "";
-        this.absoluteFolderPath = absoluteFolderPath;
-        // TODO get name project
+        String[] s = url.split("/");
+        this.nameProject = s[s.length - 1];
+        this.absoluteFolderPath = absoluteFolderPath + "\\" + this.nameProject;
+        gitVersionControlSystem.gitClone(url, this.absoluteFolderPath);
         createStructProject();
     }
 
-    public Project(String absoluteFolderPath) {
-        this.nameProject = "";
-        this.absoluteFolderPath = absoluteFolderPath;
-        // TODO get name project
+    public Project(File dirProject) {
+        this.nameProject = dirProject.getName();
+        this.absoluteFolderPath = dirProject.getAbsolutePath();
         createStructProject();
     }
 
     private void createStructProject() {
-        fileSystem.createFolder(absoluteFolderPath + "\\" + nameProject + "\\src");
-        fileSystem.createFolder(absoluteFolderPath + "\\" + nameProject + "\\test");
+        fileSystem.createFolder(absoluteFolderPath);
+        fileSystem.createFolder(absoluteFolderPath + "\\src");
+        fileSystem.createFolder(absoluteFolderPath + "\\test");
     }
 
     public void setSimulationEnvironment(SimulationEnvironment simulationEnvironment) {
@@ -61,5 +62,17 @@ public class Project {
 
     public void save(String absoluteFilePath, String text) {
         fileSystem.writeFile(absoluteFilePath, text);
+    }
+
+    public File[] getAllSrcFiles() {
+        return fileSystem.getAllFiles(absoluteFolderPath + "\\src");
+    }
+
+    public File[] getAllTestFiles() {
+        return fileSystem.getAllFiles(absoluteFolderPath + "\\test");
+    }
+
+    public String getNameProject() {
+        return nameProject;
     }
 }

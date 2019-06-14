@@ -1,5 +1,7 @@
 package tdhd.project;
 
+import java.io.File;
+
 class FileSystem {
     boolean createFile(String absolutePath) {
         return false;
@@ -14,14 +16,18 @@ class FileSystem {
     }
 
     void createFolder(String absolutePath) {
-
+        if (new File(absolutePath).mkdir()) {
+            writeLog(absolutePath + " folder created");
+        } else {
+            writeLog(absolutePath + " folder not created");
+        }
     }
 
-    String[] getAllFilesPaths(String absolutePathFolder) {
-        return null;
+    File[] getAllFiles(String absolutePath) {
+        return new File(absolutePath).listFiles();
     }
 
-    String[] getAllFilesNames(String absoluteFolderPath) {
-        return null;
+    private void writeLog(String text) {
+        System.out.println("FileSystem message: " + text);
     }
 }
