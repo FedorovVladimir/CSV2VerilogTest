@@ -1,8 +1,12 @@
 package tdhd.project;
 
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import tdhd.simulation_environment.IcarusVerilog;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Project {
@@ -11,10 +15,15 @@ public class Project {
 
     private GitVersionControlSystem gitVersionControlSystem = new GitVersionControlSystem();
 
-    private SimulationEnvironment simulationEnvironment = new IcarusVerilog();
+    private IcarusVerilog icarusVerilog = new IcarusVerilog();
 
     private String nameProject;
+
     private String absoluteFolderPath;
+
+    public String getNameProject() {
+        return nameProject;
+    }
 
     public Project(String url, String absoluteFolderPath) {
         String[] s = url.split("/");
@@ -36,16 +45,24 @@ public class Project {
         fileSystem.createFolder(absoluteFolderPath + "\\test");
     }
 
-    public void setSimulationEnvironment(SimulationEnvironment simulationEnvironment) {
-        this.simulationEnvironment = simulationEnvironment;
-    }
-
-    public void setGitVersionControlSystem(GitVersionControlSystem gitVersionControlSystem) {
-        this.gitVersionControlSystem = gitVersionControlSystem;
-    }
-
     public Map<String, Boolean> runAllTests() {
+        String[] files = findAllFiles();
+        String compileString = icarusVerilog.run(absoluteFolderPath, files);
+        System.out.println(compileString);
         return null;
+    }
+
+    private String[] findAllFiles() {
+        File[] srcFiles = getAllSrcFiles();
+        File[] testFiles = getAllSrcFiles();
+        List<String> paths = new LinkedList<>();
+        for (File f : srcFiles) {
+            paths.add(f.getAbsolutePath());
+        }
+        for (File f : testFiles) {
+            paths.add(f.getAbsolutePath());
+        }
+        return paths.toArray(new String[0]);
     }
 
     public void gitCommit(String message) {
@@ -56,31 +73,46 @@ public class Project {
         gitVersionControlSystem.gitPush(login, password, absoluteFolderPath);
     }
 
-    public boolean createFile(String absoluteFilePath) {
-        return fileSystem.createFile(absoluteFilePath);
-    }
-
     public void save(String absoluteFilePath, String text) {
         fileSystem.writeFile(absoluteFilePath, text);
     }
 
+
     public File[] getAllSrcFiles() {
-        return fileSystem.getAllFiles(absoluteFolderPath + "\\src");
+        return getAllFiles(absoluteFolderPath + "\\src");
     }
 
     public File[] getAllTestFiles() {
-        return fileSystem.getAllFiles(absoluteFolderPath + "\\test");
+        return getAllFiles(absoluteFolderPath + "\\test");
     }
 
-    public String getNameProject() {
-        return nameProject;
+    private File[] getAllFiles(String absoluteFilePath) {
+        return fileSystem.getAllFiles(absoluteFilePath);
     }
+
 
     public String readSrcFile(String nameFile) {
-        return fileSystem.readFile(absoluteFolderPath + "\\src\\" + nameFile);
+        return readFile(absoluteFolderPath + "\\src\\" + nameFile);
     }
 
     public String readTestFile(String nameFile) {
-        return fileSystem.readFile(absoluteFolderPath + "\\test\\" + nameFile);
+        return readFile(absoluteFolderPath + "\\test\\" + nameFile);
+    }
+
+    private String readFile(String absoluteFilePath) {
+        return fileSystem.readFile(absoluteFilePath);
+    }
+
+
+    public void createSrcFile(String nameFile) {
+        createFile(absoluteFolderPath + "\\src\\" + nameFile + ".v");
+    }
+
+    public void createTestFile(String nameFile) {
+        createFile(absoluteFolderPath + "\\test\\" + nameFile + ".v");
+    }
+
+    private void createFile(String absoluteFilePath) {
+        fileSystem.createFile(absoluteFilePath);
     }
 }

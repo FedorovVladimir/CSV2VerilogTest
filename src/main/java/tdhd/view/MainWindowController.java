@@ -1,14 +1,10 @@
 package tdhd.view;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.DirectoryChooser;
 import tdhd.project.Project;
 
@@ -21,13 +17,23 @@ public class MainWindowController implements Initializable {
     @FXML
     private TreeView<Label> FilesTree;
 
+    @FXML
+    private Tab SrcFileName;
+
+    @FXML
+    private TextArea SrcCode;
+
+    @FXML
+    private Tab TestFileName;
+
+    @FXML
+    private TextArea TestCode;
+
     private String login = "";
 
     private String password = "";
 
     private Project project;
-
-    private List<Tool> tools = new LinkedList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,9 +43,11 @@ public class MainWindowController implements Initializable {
                 String folder = item.getParent().getValue().getText();
                 String nameFile = item.getValue().getText();
                 if (folder.equals("src")) {
-                    System.out.println(project.readSrcFile(nameFile));
+                    SrcFileName.setText(nameFile);
+                    SrcCode.setText(project.readSrcFile(nameFile));
                 } else if (folder.equals("test")) {
-                    System.out.println(project.readTestFile(nameFile));
+                    TestFileName.setText(nameFile);
+                    TestCode.setText(project.readTestFile(nameFile));
                 }
             }
         });
@@ -98,7 +106,8 @@ public class MainWindowController implements Initializable {
         project.gitPush(login, password);
     }
 
-    void runAllTests() {
+    @FXML
+    void runAllTests(ActionEvent event) {
         Map<String, Boolean> results = project.runAllTests();
 
         // TODO output results
@@ -113,12 +122,18 @@ public class MainWindowController implements Initializable {
         return result.get();
     }
 
-    void newFile() {
-        String absoluteFilePath = "";
-        // TODO get module name
-        boolean result = project.createFile(absoluteFilePath);
+    @FXML
+    void newSrcFile(ActionEvent event) {
+        String nameFile = getString("", "new file", "Enter name file", "");
+        project.createSrcFile(nameFile);
+        update();
+    }
 
-        // TODO message result
+    @FXML
+    void newTestFile(ActionEvent event) {
+        String nameFile = getString("", "new file", "Enter name file", "");
+        project.createTestFile(nameFile);
+        update();
     }
 
     void saveFile() {
@@ -128,10 +143,6 @@ public class MainWindowController implements Initializable {
         // TODO get absoluteFilePath and text
 
         project.save(absoluteFilePath, text);
-    }
-
-    public void addTool(Tool tool) {
-        tools.add(tool);
     }
 
     private void update() {
@@ -144,7 +155,6 @@ public class MainWindowController implements Initializable {
         TreeItem<Label> testItem = new TreeItem<>(new Label("test"));
         rootItem.getChildren().add(srcItem);
         rootItem.getChildren().add(testItem);
-
 
         for (File f : srcFiles) {
             Label label = new Label(f.getName());

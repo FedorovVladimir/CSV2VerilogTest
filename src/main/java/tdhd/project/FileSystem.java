@@ -3,8 +3,16 @@ package tdhd.project;
 import java.io.*;
 
 class FileSystem {
-    boolean createFile(String absolutePath) {
-        return false;
+    void createFile(String absolutePath) {
+        try {
+            FileWriter fileWriter = new FileWriter(absolutePath);
+            fileWriter.write("");
+            fileWriter.flush();
+            fileWriter.close();
+            writeLog(absolutePath + " file created");
+        } catch (IOException e) {
+            writeLog(absolutePath + " file created fail");
+        }
     }
 
     String readFile(String absolutePath) {
