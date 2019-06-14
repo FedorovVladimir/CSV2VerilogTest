@@ -2,13 +2,18 @@ package tdhd.view;
 
 import javafx.scene.control.TextInputDialog;
 import tdhd.project.Project;
+import tdhd.tools.CreateModuleTool;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class MainWindowController {
 
     private Project project;
+
+    private List<Tool> tools = new LinkedList<>();
 
     public MainWindowController() {
     }
@@ -41,7 +46,7 @@ public class MainWindowController {
     }
 
     void gitCommit() {
-        String message = getString("", "", "", "");
+        String message = getString("", "git commit", "Enter commit text", "");
         project.gitCommit(message);
     }
 
@@ -78,5 +83,9 @@ public class MainWindowController {
         // TODO get absoluteFilePath and text
 
         project.save(absoluteFilePath, text);
+    }
+
+    public void addTool(Tool tool) {
+        tools.add(tool);
     }
 }

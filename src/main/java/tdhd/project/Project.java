@@ -1,16 +1,16 @@
 package tdhd.project;
 
-import tdhd.FileSystemFactory;
+import tdhd.simulation_environment.IcarusVerilog;
 
 import java.util.Map;
 
 public class Project {
 
-    private FileSystem fileSystem = FileSystemFactory.getFileSystem();
+    private FileSystem fileSystem = new FileSystem();
 
-    private GitVersionControlSystem gitVersionControlSystem;
+    private GitVersionControlSystem gitVersionControlSystem = new GitVersionControlSystem();
 
-    private SimulationEnvironment simulationEnvironment;
+    private SimulationEnvironment simulationEnvironment = new IcarusVerilog();
 
     private String nameProject;
     private String absoluteFolderPath;

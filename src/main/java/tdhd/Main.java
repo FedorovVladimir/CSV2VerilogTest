@@ -1,6 +1,9 @@
 package tdhd;
 
 import tdhd.project.Project;
+import tdhd.tools.CreateDynamicTestTool;
+import tdhd.tools.CreateModuleTool;
+import tdhd.tools.CreateStaticTestTool;
 import tdhd.view.MainWindowController;
 
 public class Main {
@@ -16,5 +19,9 @@ public class Main {
         } else {
             mainWindowController = new MainWindowController();
         }
+
+        mainWindowController.addTool(new CreateModuleTool());
+        mainWindowController.addTool(new CreateStaticTestTool());
+        mainWindowController.addTool(new CreateDynamicTestTool());
     }
 }
