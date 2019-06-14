@@ -54,7 +54,7 @@ public class Project {
 
     private String[] findAllFiles() {
         File[] srcFiles = getAllSrcFiles();
-        File[] testFiles = getAllSrcFiles();
+        File[] testFiles = getAllTestFiles();
         List<String> paths = new LinkedList<>();
         for (File f : srcFiles) {
             paths.add(f.getAbsolutePath());

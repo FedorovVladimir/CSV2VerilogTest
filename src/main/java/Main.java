@@ -18,7 +18,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
 
-        Project project = new Project(new File("C:\\Users\\Vladimir\\TDHD\\full"));
+        Project project = new Project(new File("C:\\Users\\vladimir\\TDHDProjects\\first"));
         // TODO read last project
         MainWindowController mainWindowController = loader.getController();
         mainWindowController.setLogin("FedorovVladimir");
