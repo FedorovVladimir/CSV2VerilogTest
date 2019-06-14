@@ -9,7 +9,7 @@ class CreateModuleTest {
     @Disabled
     @Test
     void createEmptyModuleTest3() {
-        TestModule testModule = new TestModule("name", 1);
+        TestModule testModule = new TestModule("name");
         testModule.addInput("a", "0");
         testModule.addOutput("b", "0");
         assertEquals(testModule.getText(),

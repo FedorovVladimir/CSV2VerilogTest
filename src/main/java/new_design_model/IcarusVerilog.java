@@ -21,6 +21,7 @@ public class IcarusVerilog {
     }
 
     public void setListFiles(File[] listFiles, File[] listFiles2) {
+        this.listFiles.clear();
         for (File file : listFiles) {
             this.listFiles.add("src\\" + file.getName());
         }

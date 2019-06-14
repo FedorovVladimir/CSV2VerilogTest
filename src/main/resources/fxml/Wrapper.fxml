@@ -10,11 +10,13 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="new_design.Controller">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="new_design.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -26,19 +28,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Module">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#newModule" text="New module" />
-                  <MenuItem mnemonicParsing="false" onAction="#removeModule" text="Remove module" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Test">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#newTest" text="New test" />
-                  <MenuItem mnemonicParsing="false" onAction="#editTest" text="Edit test" />
-                  <MenuItem mnemonicParsing="false" onAction="#removeTest" text="Remove test" />
-               </items>
-            </Menu>
       </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -93,12 +82,19 @@
                               <Button mnemonicParsing="false" onAction="#push" text="push" />
                               <Button mnemonicParsing="false" onAction="#commit" text="commit" />
                               <Button mnemonicParsing="false" onAction="#run" text="run" />
+                              <ImageView onMouseClicked="#runImage">
+                                 <image>
+                                    <Image url="@../icon/compile.png" />
+                                 </image>
+                              </ImageView>
                            </items>
                         </ToolBar>
                         <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <Button mnemonicParsing="false" onAction="#newModule" text="New module" />
                               <Button mnemonicParsing="false" onAction="#removeModule" text="Remove module" />
+                              <Button mnemonicParsing="false" onAction="#newTest" text="New test" />
+                              <Button mnemonicParsing="false" onAction="#removeTest" text="Remove test" />
                           </items>
                         </ToolBar>
                      </children>

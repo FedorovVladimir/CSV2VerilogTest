@@ -1,5 +1,6 @@
 package new_design_model;
 
+import model.TestModule;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -10,6 +11,9 @@ public class Project {
     private PathFile path;
     private boolean isOpen;
 
+    private MyGit git = new MyGit();
+    private IcarusVerilog icarusVerilog;
+
     public Project(String name) {
         this.path = new PathFile(PathProject.getProjectsPath() + "\\" + name);
         File dir = new File(path.getPath());
@@ -19,11 +23,15 @@ public class Project {
             System.out.println("Создан проект " + dir.getName());
         }
         isOpen = true;
+        icarusVerilog = new IcarusVerilog(getName());
+        icarusVerilog.setProjectPath(PathProject.getProjectsPath());
     }
 
     public Project(PathFile path) {
         this.path = new PathFile(path.getPath());
         isOpen = true;
+        icarusVerilog = new IcarusVerilog(getName());
+        icarusVerilog.setProjectPath(PathProject.getProjectsPath());
     }
 
     public Project(Url url) {
@@ -38,6 +46,8 @@ public class Project {
         } catch (GitAPIException e) {
             this.isOpen = false;
         }
+        icarusVerilog = new IcarusVerilog(getName());
+        icarusVerilog.setProjectPath(PathProject.getProjectsPath());
     }
 
     public String getPath() {
@@ -127,11 +137,10 @@ public class Project {
     }
 
     public String run() {
-        IcarusVerilog icarusVerilog = new IcarusVerilog(getName());
         File[] f1 = getListFiles();
         File[] f2 = getListTests();
-        icarusVerilog.setProjectPath(PathProject.getProjectsPath());
         icarusVerilog.setListFiles(f1, f2);
+
         String compileText = icarusVerilog.compile();
         if (!compileText.equals("")) {
             return compileText;
@@ -142,5 +151,48 @@ public class Project {
     public String getName() {
         String[] strings = path.getPath().replace("\\", "&").split("&");
         return strings[strings.length - 1];
+    }
+
+    public void commit(String message) {
+        git.commit(message);
+    }
+
+    public void push() {
+        git.push();
+    }
+
+    public void newTest(String name) {
+        try {
+            File file = new File(getPath() + "\\test\\" + name + ".v");
+            FileWriter fileWriter = new FileWriter(file);
+            TestModule test = new TestModule(name);
+            fileWriter.write(test.getText());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveTest(String text, String path) {
+        try {
+            File file = new File(getPath() + "\\test\\" + path);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(text);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeTest(String name) {
+        System.out.println("remove " + name);
+        File file = new File(getPath() + "\\test\\" + name);
+        if (file.delete()) {
+            System.out.println("File " + name + " remove");
+        } else {
+            System.out.println("Error remove");
+        }
     }
 }

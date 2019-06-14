@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import new_design_model.PathFile;
@@ -53,6 +54,7 @@ public class Controller implements Initializable {
         LabelTestCode.setText("");
 
         TextCode.textProperty().addListener((obs,old,niu)-> project.saveModule(TextCode.getText(), LabelFileCode.getText()));
+        TextTest.textProperty().addListener((obs,old,niu)-> project.saveTest(TextTest.getText(), LabelTestCode.getText()));
     }
 
     @FXML
@@ -201,17 +203,26 @@ public class Controller implements Initializable {
 
     @FXML
     void newTest(ActionEvent event) {
-//        project.newTest();
-    }
+        final String[] testName = {""};
 
-    @FXML
-    void editTest(ActionEvent event) {
-//        project.editTest();
+        TextInputDialog dialog = new TextInputDialog("untitled");
+        dialog.setTitle("New test");
+        dialog.setHeaderText("Enter test name:");
+        dialog.setContentText("Name:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> testName[0] = name);
+
+        if (!testName[0].equals("")) {
+            project.newTest(testName[0]);
+            updateListFiles();
+        }
     }
 
     @FXML
     void removeTest(ActionEvent event) {
-//        project.removeTest();
+        String name = TreeView.getSelectionModel().getSelectedItems().get(0).getValue().getText();
+        project.removeTest(name);
+        updateListFiles();
     }
 
 
@@ -223,11 +234,25 @@ public class Controller implements Initializable {
 
     @FXML
     void commit(ActionEvent event) {
-//        project.commit();
+        final String[] message = {""};
+
+        TextInputDialog dialog = new TextInputDialog("untitled");
+        dialog.setTitle("New commit");
+        dialog.setHeaderText("Enter commit text:");
+        dialog.setContentText("Text:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(name -> message[0] = name);
+
+        project.commit(message[0]);
     }
 
     @FXML
     void push(ActionEvent event) {
-//        project.push();
+        project.push();
+    }
+
+    @FXML
+    void runImage(MouseEvent event) {
+        TextConsole.setText(project.run());
     }
 }
