@@ -1,15 +1,14 @@
 package tdhd.project;
 
-public class GitVersionControlSystem {
-    public Void gitClone(String url, String absoluteFolderPath) {
-        return null;
+class GitVersionControlSystem {
+    void gitClone(String url, String absoluteFolderPath) {
+
     }
 
-    public Void gitCommit(String message) {
-        return null;
+    void gitCommit(String message) {
     }
 
-    public Boolean gitPush(String login, String password) {
-        return null;
+    boolean gitPush(String login, String password) {
+        return false;
     }
 }

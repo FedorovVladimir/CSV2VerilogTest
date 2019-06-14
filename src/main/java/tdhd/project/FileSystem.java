@@ -1,13 +1,13 @@
 package tdhd.project;
 
 public interface FileSystem {
-    Boolean createFile(String absolutePath);
+    boolean createFile(String absolutePath);
 
     String readFile(String absolutePath);
 
-    Void writeFile(String absolutePath, String text);
+    void writeFile(String absolutePath, String text);
 
-    Void createFolder(String absolutePath);
+    void createFolder(String absolutePath);
 
     String[] getAllFilesPaths(String absolutePathFolder);
 

@@ -4,8 +4,8 @@ import tdhd.project.FileSystem;
 
 public class WindowsFileSystem implements FileSystem {
     @Override
-    public Boolean createFile(String absolutePath) {
-        return null;
+    public boolean createFile(String absolutePath) {
+        return false;
     }
 
     @Override
@@ -14,13 +14,13 @@ public class WindowsFileSystem implements FileSystem {
     }
 
     @Override
-    public Void writeFile(String absolutePath, String text) {
-        return null;
+    public void writeFile(String absolutePath, String text) {
+
     }
 
     @Override
-    public Void createFolder(String absolutePath) {
-        return null;
+    public void createFolder(String absolutePath) {
+
     }
 
     @Override
