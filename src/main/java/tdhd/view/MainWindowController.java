@@ -1,8 +1,10 @@
 package tdhd.view;
 
+import javafx.scene.control.TextInputDialog;
 import tdhd.project.Project;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class MainWindowController {
 
@@ -39,10 +41,17 @@ public class MainWindowController {
     }
 
     void gitCommit() {
-        String message = "";
-        // TODO get message
-
+        String message = getString("", "", "", "");
         project.gitCommit(message);
+    }
+
+    private String getString(String defaultValue, String title, String headerText, String contentText) {
+        TextInputDialog dialog = new TextInputDialog(defaultValue);
+        dialog.setTitle(title);
+        dialog.setHeaderText(headerText);
+        dialog.setContentText(contentText);
+        Optional<String> result = dialog.showAndWait();
+        return String.valueOf(result);
     }
 
     void gitPush() {
