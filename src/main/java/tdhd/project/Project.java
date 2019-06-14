@@ -1,12 +1,12 @@
 package tdhd.project;
 
-import tdhd.file_system.WindowsFileSystem;
+import tdhd.FileSystemFactory;
 
 import java.util.Map;
 
 public class Project {
 
-    private FileSystem fileSystem;
+    private FileSystem fileSystem = FileSystemFactory.getFileSystem();
 
     private GitVersionControlSystem gitVersionControlSystem;
 
@@ -16,7 +16,6 @@ public class Project {
     private String absoluteFolderPath;
 
     public Project(String url, String absoluteFolderPath) {
-        selectFileSystem();
         gitVersionControlSystem.gitClone(url, absoluteFolderPath);
         this.nameProject = "";
         this.absoluteFolderPath = absoluteFolderPath;
@@ -25,7 +24,6 @@ public class Project {
     }
 
     public Project(String absoluteFolderPath) {
-        selectFileSystem();
         this.nameProject = "";
         this.absoluteFolderPath = absoluteFolderPath;
         // TODO get name project
@@ -35,10 +33,6 @@ public class Project {
     private void createStructProject() {
         fileSystem.createFolder(absoluteFolderPath + "\\" + nameProject + "\\src");
         fileSystem.createFolder(absoluteFolderPath + "\\" + nameProject + "\\test");
-    }
-
-    private void selectFileSystem() {
-        fileSystem = new WindowsFileSystem();
     }
 
     public void setSimulationEnvironment(SimulationEnvironment simulationEnvironment) {
