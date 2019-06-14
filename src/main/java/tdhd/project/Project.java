@@ -49,11 +49,11 @@ public class Project {
     }
 
     public void gitCommit(String message) {
-        gitVersionControlSystem.gitCommit(message);
+        gitVersionControlSystem.gitCommit(message, absoluteFolderPath);
     }
 
     public void gitPush(String login, String password) {
-        gitVersionControlSystem.gitPush(login, password);
+        gitVersionControlSystem.gitPush(login, password, absoluteFolderPath);
     }
 
     public boolean createFile(String absoluteFilePath) {
@@ -74,5 +74,13 @@ public class Project {
 
     public String getNameProject() {
         return nameProject;
+    }
+
+    public String readSrcFile(String nameFile) {
+        return fileSystem.readFile(absoluteFolderPath + "\\src\\" + nameFile);
+    }
+
+    public String readTestFile(String nameFile) {
+        return fileSystem.readFile(absoluteFolderPath + "\\test\\" + nameFile);
     }
 }

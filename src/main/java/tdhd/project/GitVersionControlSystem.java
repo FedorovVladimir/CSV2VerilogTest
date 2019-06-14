@@ -2,6 +2,7 @@ package tdhd.project;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +35,22 @@ class GitVersionControlSystem {
         }
     }
 
-    boolean gitPush(String login, String password) {
-        return false;
+    boolean gitPush(String login, String password, String absoluteFolderPath) {
+        File gitFile = new File(absoluteFolderPath + "\\.git");
+        try {
+            Git.open(gitFile)
+                    .push()
+                    .setCredentialsProvider(new UsernamePasswordCredentialsProvider(login, password))
+                    .call();
+            writeLog("git push");
+            return true;
+        } catch (GitAPIException | IOException e) {
+            writeLog("git push fail");
+            return false;
+        }
     }
 
     private void writeLog(String text) {
-        System.out.println("Git massege " + text);
+        System.out.println("Git massege: " + text);
     }
 }

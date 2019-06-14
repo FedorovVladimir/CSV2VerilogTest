@@ -1,6 +1,6 @@
 package tdhd.project;
 
-import java.io.File;
+import java.io.*;
 
 class FileSystem {
     boolean createFile(String absolutePath) {
@@ -8,7 +8,19 @@ class FileSystem {
     }
 
     String readFile(String absolutePath) {
-        return null;
+        try {
+            StringBuilder stringBuffer = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(absolutePath));
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                stringBuffer.append(text).append("\n");
+            }
+            writeLog(absolutePath + " file read");
+            return String.valueOf(stringBuffer);
+        } catch (IOException e) {
+            writeLog(absolutePath + " file read fail");
+        }
+        return "";
     }
 
     void writeFile(String absolutePath, String text) {
