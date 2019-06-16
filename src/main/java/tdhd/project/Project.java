@@ -46,6 +46,17 @@ public class Project {
         return icarusVerilog.compile(absoluteFolderPath, files);
     }
 
+    public String compile(File testFile) {
+        List<String> paths = new LinkedList<>();
+        File[] srcFiles = getAllSrcFiles();
+        for (File f : srcFiles) {
+            paths.add(f.getAbsolutePath());
+        }
+        paths.add(testFile.getAbsolutePath());
+        paths.add(absoluteFolderPath + "\\test\\allTests.v");
+        return icarusVerilog.compile(absoluteFolderPath, paths.toArray(new String[0]));
+    }
+
     public List<Map<String, String>> run() {
         String runStr = icarusVerilog.run(absoluteFolderPath);
         Scanner scanner = new Scanner(runStr);

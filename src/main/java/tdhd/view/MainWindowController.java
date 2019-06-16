@@ -127,23 +127,41 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void runAllTests(ActionEvent event) {
-        String compileStr = project.compile();
-        Console.setText(compileStr);
-        if (compileStr.equals("")) {
-            List<Map<String, String>> tests = project.run();
-            for (Map<String, String> test: tests) {
-                System.out.println(test);
+        Label projectLabel = new Label("test");
+        TreeItem<Label> rootItem = new TreeItem<>(projectLabel);
+        for (File testFile: project.getAllTestFiles()) {
+            if (testFile.getName().equals("allTests.v")) {
+                continue;
             }
+            Label label = new Label(testFile.getName());
+            TreeItem<Label> item = new TreeItem<>(label);
+            rootItem.getChildren().add(item);
 
-            Label projectLabel = new Label("tests");
-            TreeItem<Label> rootItem = new TreeItem<>(projectLabel);
-            for (Map<String, String> test: tests) {
-                Label label = new Label(test.get("name"));
-                TreeItem<Label> item = new TreeItem<>(label);
-                rootItem.getChildren().add(item);
+            String compileStr = project.compile(testFile);
+            Console.setText(compileStr);
+            if (compileStr.equals("")) {
+                List<Map<String, String>> tests = project.run();
+                boolean isAllTestTrue = true;
+                for (Map<String, String> test : tests) {
+                    Label labelOneTest = new Label(test.get("name"));
+                    TreeItem<Label> itemOneTest = new TreeItem<>(labelOneTest);
+                    item.getChildren().add(itemOneTest);
 
+                    InputStream input;
+                    if (test.get("result").equals("1")) {
+                        input = getClass().getResourceAsStream("/t_true.png");
+                    } else {
+                        input = getClass().getResourceAsStream("/t_false.png");
+                        isAllTestTrue = false;
+                    }
+                    Image image = new Image(input);
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(20);
+                    imageView.setFitHeight(20);
+                    labelOneTest.setGraphic(imageView);
+                }
                 InputStream input;
-                if (test.get("result").equals("1")) {
+                if (isAllTestTrue) {
                     input = getClass().getResourceAsStream("/t_true.png");
                 } else {
                     input = getClass().getResourceAsStream("/t_false.png");
@@ -153,6 +171,9 @@ public class MainWindowController implements Initializable {
                 imageView.setFitWidth(20);
                 imageView.setFitHeight(20);
                 label.setGraphic(imageView);
+                if (!isAllTestTrue) {
+                    item.setExpanded(true);
+                }
             }
 
             rootItem.setExpanded(true);
@@ -210,6 +231,9 @@ public class MainWindowController implements Initializable {
             srcItem.getChildren().add(item);
         }
         for (File f : testFiles) {
+            if (f.getName().equals("allTests.v")) {
+                continue;
+            }
             Label label = new Label(f.getName());
             TreeItem<Label> item = new TreeItem<>(label);
             testItem.getChildren().add(item);
