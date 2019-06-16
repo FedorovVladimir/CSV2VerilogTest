@@ -1,4 +1,4 @@
-package code_creator;
+package tdhd.code_creator;
 
 import java.util.List;
 
@@ -20,16 +20,12 @@ public class CodeCreator {
     }
 
     private String b(String s) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t\t$display(\"").append(s).append("\");\n");
-        stringBuilder.append("\t\t$display(out_").append(s).append(");\n");
-        return String.valueOf(stringBuilder);
+        return "\t\t$display(\"" + s + "\");\n" +
+                "\t\t$display(out_" + s + ");\n";
     }
 
     private String a(String s) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\twire out_").append(s).append(";\n");
-        stringBuilder.append("\t").append(s).append(" ").append(s).append("(out_").append(s).append(");\n");
-        return String.valueOf(stringBuilder);
+        return "\twire out_" + s + ";\n" +
+                "\t" + s + " " + s + "(out_" + s + ");\n";
     }
 }

@@ -1,6 +1,6 @@
 package tdhd.project;
 
-import code_creator.CodeCreator;
+import tdhd.code_creator.CodeCreator;
 import tdhd.Parser.ParserVerilog;
 import tdhd.simulation_environment.IcarusVerilog;
 
@@ -77,19 +77,6 @@ public class Project {
         }
 
         return tests;
-    }
-
-    private String[] findAllFiles() {
-        File[] srcFiles = getAllSrcFiles();
-        File[] testFiles = getAllTestFiles();
-        List<String> paths = new LinkedList<>();
-        for (File f : srcFiles) {
-            paths.add(f.getAbsolutePath());
-        }
-        for (File f : testFiles) {
-            paths.add(f.getAbsolutePath());
-        }
-        return paths.toArray(new String[0]);
     }
 
     public void gitCommit(String message) {
