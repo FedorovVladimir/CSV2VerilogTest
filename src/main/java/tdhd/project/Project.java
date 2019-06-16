@@ -1,13 +1,9 @@
 package tdhd.project;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
 import tdhd.simulation_environment.IcarusVerilog;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Project {
 
@@ -45,11 +41,25 @@ public class Project {
         fileSystem.createFolder(absoluteFolderPath + "\\test");
     }
 
-    public Map<String, Boolean> runAllTests() {
+    public String compile() {
         String[] files = findAllFiles();
-        String compileString = icarusVerilog.run(absoluteFolderPath, files);
-        System.out.println(compileString);
-        return null;
+        return icarusVerilog.compile(absoluteFolderPath, files);
+    }
+
+    public List<Map<String, String>> run() {
+        String runStr = icarusVerilog.run(absoluteFolderPath);
+        Scanner scanner = new Scanner(runStr);
+
+        List<Map<String, String>> tests = new LinkedList<>();
+
+        while (scanner.hasNext()) {
+            Map<String, String> a = new HashMap<>();
+            a.put("name", scanner.nextLine());
+            a.put("result", scanner.nextLine());
+            tests.add(a);
+        }
+
+        return tests;
     }
 
     private String[] findAllFiles() {
@@ -73,8 +83,16 @@ public class Project {
         gitVersionControlSystem.gitPush(login, password, absoluteFolderPath);
     }
 
-    public void save(String absoluteFilePath, String text) {
-        fileSystem.writeFile(absoluteFilePath, text);
+    public void saveSrcFile(String text, String nameFile) {
+        save(text, absoluteFolderPath + "\\src\\" + nameFile);
+    }
+
+    public void saveTestFile(String text, String nameFile) {
+        save(text, absoluteFolderPath + "\\test\\" + nameFile);
+    }
+
+    private void save(String text, String absoluteFilePath) {
+        fileSystem.writeFile(text, absoluteFilePath);
     }
 
 

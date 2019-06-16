@@ -8,13 +8,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IcarusVerilog {
-    public String run(String absoluteFolderPath, String[] filesPaths) {
+    public String compile(String absoluteFolderPath, String[] filesPaths) {
         List<String> commandCompile = new ArrayList<>();
         commandCompile.add("iverilog");
         commandCompile.add("-o");
-        commandCompile.add(absoluteFolderPath + "run");
+        commandCompile.add(absoluteFolderPath + "\\run");
         commandCompile.addAll(Arrays.asList(filesPaths));
         return exec(commandCompile);
+    }
+
+    public String run(String absoluteFolderPath) {
+        List<String> commandRun = new ArrayList<>();
+        commandRun.add("vvp");
+        commandRun.add(absoluteFolderPath + "\\run");
+        return exec(commandRun);
     }
 
     private String exec(List<String> command) {

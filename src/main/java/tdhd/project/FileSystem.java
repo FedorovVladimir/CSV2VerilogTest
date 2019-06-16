@@ -31,8 +31,15 @@ class FileSystem {
         return "";
     }
 
-    void writeFile(String absolutePath, String text) {
-
+    void writeFile(String text, String absolutePath) {
+        try {
+            FileWriter fileWriter = new FileWriter(absolutePath);
+            fileWriter.write(text);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
     }
 
     void createFolder(String absolutePath) {

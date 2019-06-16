@@ -1,14 +1,19 @@
 package tdhd.view;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.DirectoryChooser;
 import tdhd.project.Project;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
@@ -28,6 +33,12 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private TextArea TestCode;
+
+    @FXML
+    private TreeView<Label> TestsTree;
+
+    @FXML
+    private TextArea Console;
 
     private String login = "";
 
@@ -50,6 +61,14 @@ public class MainWindowController implements Initializable {
                     TestCode.setText(project.readTestFile(nameFile));
                 }
             }
+        });
+
+        SrcCode.textProperty().addListener((obs,old,niu) -> {
+            saveSrcFile(niu);
+        });
+
+        TestCode.textProperty().addListener((obs,old,niu) -> {
+            saveTestFile(niu);
         });
     }
 
@@ -108,9 +127,37 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void runAllTests(ActionEvent event) {
-        Map<String, Boolean> results = project.runAllTests();
+        String compileStr = project.compile();
+        Console.setText(compileStr);
+        if (compileStr.equals("")) {
+            List<Map<String, String>> tests = project.run();
+            for (Map<String, String> test: tests) {
+                System.out.println(test);
+            }
 
-        // TODO output results
+            Label projectLabel = new Label("tests");
+            TreeItem<Label> rootItem = new TreeItem<>(projectLabel);
+            for (Map<String, String> test: tests) {
+                Label label = new Label(test.get("name"));
+                TreeItem<Label> item = new TreeItem<>(label);
+                rootItem.getChildren().add(item);
+
+                InputStream input;
+                if (test.get("result").equals("1")) {
+                    input = getClass().getResourceAsStream("/t_true.png");
+                } else {
+                    input = getClass().getResourceAsStream("/t_false.png");
+                }
+                Image image = new Image(input);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(20);
+                imageView.setFitHeight(20);
+                label.setGraphic(imageView);
+            }
+
+            rootItem.setExpanded(true);
+            TestsTree.setRoot(rootItem);
+        }
     }
 
     private String getString(String defaultValue, String title, String headerText, String contentText) {
@@ -136,13 +183,14 @@ public class MainWindowController implements Initializable {
         update();
     }
 
-    void saveFile() {
-        String absoluteFilePath = "";
-        String text = "";
+    private void saveSrcFile(String text) {
+        String nameFile = SrcFileName.getText();
+        project.saveSrcFile(text, nameFile);
+    }
 
-        // TODO get absoluteFilePath and text
-
-        project.save(absoluteFilePath, text);
+    private void saveTestFile(String text) {
+        String nameFile = TestFileName.getText();
+        project.saveTestFile(text, nameFile);
     }
 
     private void update() {
