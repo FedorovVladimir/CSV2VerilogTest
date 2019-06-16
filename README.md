@@ -1,12 +1,12 @@
 # Среда для написания программ на Verilog по TDD
 
 ## Структура проекта
-name_project
-  src
-    lib.v
-    ... // your src files
-  test
-    ... // your test files
+name_project<br>
+  src<br>
+    lib.v<br>
+    ... // your src files<br>
+  test<br>
+    ... // your test files<br>
     
 ## Содержание lib.v
 ```
