@@ -14,13 +14,13 @@ import java.util.List;
 public class ParserVerilog {
 
     public static void main(String[] args) {
-        List<String> testsNames = getAllModulesNames("C:\\Users\\vladimir\\TDHDProjects\\first\\test\\test.v");
+        List<String> testsNames = new ParserVerilog().getAllModulesNames("C:\\Users\\vladimir\\TDHDProjects\\first\\test\\test.v");
         for (String s: testsNames) {
             System.out.println(s);
         }
     }
 
-    public static List<String> getAllModulesNames(String absoluteFilePath) {
+    public List<String> getAllModulesNames(String absoluteFilePath) {
         String code = "";
         try {
             StringBuilder stringBuilder = new StringBuilder();

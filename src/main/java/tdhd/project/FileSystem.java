@@ -4,9 +4,13 @@ import java.io.*;
 
 class FileSystem {
     void createFile(String absolutePath) {
+        createFile(absolutePath, "");
+    }
+
+    void createFile(String absolutePath, String text) {
         try {
             FileWriter fileWriter = new FileWriter(absolutePath);
-            fileWriter.write("");
+            fileWriter.write(text);
             fileWriter.flush();
             fileWriter.close();
             writeLog(absolutePath + " file created");

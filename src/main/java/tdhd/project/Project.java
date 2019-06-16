@@ -1,5 +1,7 @@
 package tdhd.project;
 
+import code_creator.CodeCreator;
+import tdhd.Parser.ParserVerilog;
 import tdhd.simulation_environment.IcarusVerilog;
 
 import java.io.File;
@@ -7,11 +9,15 @@ import java.util.*;
 
 public class Project {
 
+    private CodeCreator codeCreator = new CodeCreator();
+
     private FileSystem fileSystem = new FileSystem();
 
     private GitVersionControlSystem gitVersionControlSystem = new GitVersionControlSystem();
 
     private IcarusVerilog icarusVerilog = new IcarusVerilog();
+
+    private ParserVerilog parserVerilog = new ParserVerilog();
 
     private String nameProject;
 
@@ -41,11 +47,6 @@ public class Project {
         fileSystem.createFolder(absoluteFolderPath + "\\test");
     }
 
-    public String compile() {
-        String[] files = findAllFiles();
-        return icarusVerilog.compile(absoluteFolderPath, files);
-    }
-
     public String compile(File testFile) {
         List<String> paths = new LinkedList<>();
         File[] srcFiles = getAllSrcFiles();
@@ -53,6 +54,11 @@ public class Project {
             paths.add(f.getAbsolutePath());
         }
         paths.add(testFile.getAbsolutePath());
+
+        List<String> testsNames = parserVerilog.getAllModulesNames(testFile.getAbsolutePath());
+        String text = codeCreator.createAllTests(testsNames);
+        fileSystem.createFile(absoluteFolderPath + "\\test\\allTests.v", text);
+
         paths.add(absoluteFolderPath + "\\test\\allTests.v");
         return icarusVerilog.compile(absoluteFolderPath, paths.toArray(new String[0]));
     }
