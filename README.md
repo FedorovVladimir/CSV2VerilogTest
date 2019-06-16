@@ -1,13 +1,14 @@
 # Среда для написания программ на Verilog по TDD
 
 ## Структура проекта
-name_project<br>
-  src<br>
-    lib.v<br>
-    ... // your src files<br>
-  test<br>
-    ... // your test files<br>
-    
+```
+name_project
+  src
+    lib.v
+    ... // your src files
+  test
+    ... // your test files
+``` 
 ## Содержание lib.v
 ```
 module assertEquals(input a, b, output reg out);
